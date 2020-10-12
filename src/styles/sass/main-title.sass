@@ -1,0 +1,48 @@
+
+$horizontal_width_mobile: 44px
+$horizontal_height_mobile: 4px
+$horizontal_color: #00639B
+$horizontal_corner_mobile: 2px
+
+.title_main hr 
+    width: $horizontal_width_mobile
+    height: $horizontal_height_mobile
+    color: $horizontal_color
+
+
+.title_main svg 
+    height: 44px
+    width: 100%
+
+
+.title_main h1
+    margin-top: 20px
+    font-family: 'Quicksand', sans-serif
+    text-align: center
+    font-style: bold
+    font-size: 22pt
+
+@media screen and ( min-width: 320px )
+    .title_main h1
+        font-size: 16pt
+
+    .title_main svg
+        height: 30px
+
+@media screen and ( min-width: 425px )
+    .title_main h1
+        font-size: 18pt
+
+    .title_main svg
+        height: 38px
+
+@media screen and ( min-width: 720px )
+
+    .title_main h1
+        margin-top: 30px
+        font-size: 22pt
+
+    .title_main svg
+        height: 44px
+
+

@@ -1,0 +1,85 @@
+$heroimage_tint_color : rgba(0, 0, 0, 0.69)
+$herotext_style : bold
+$herotext_mobile_size : 24pt
+$herotext_font : 'Roboto', serif
+$hero_subtext_font : 'Quicksand', sans-serif
+$hero_subtext_style : lighter
+$hero_subtext_mobile_size : 14pt
+$herotext_color : #fff
+
+$herotext_desktop_size : 36pt
+$hero_subtext_desktop_size : 20pt
+
+.hero__image
+    position: relative
+    width: 100%
+    z-index: -1
+    .hero_img__faded
+        width: 100%
+
+
+.hero__image:after
+    position: absolute
+    height: 100%
+    width: 100%
+    background-color: rgba(0, 0, 0, .69)
+    top: 0
+    left: 0
+    display: block
+    content: ""
+
+
+#text_container_1
+    color: white
+    font-size: $herotext_mobile_size
+    font-family: $herotext_font
+    font-weight: $herotext_style
+
+#text_container_2
+    color: white
+    font-size: $hero_subtext_mobile_size
+    font-family: $hero_subtext_font
+    font-weight: $hero_subtext_style
+
+.hero__text
+    position: relative
+    margin-left: 10px
+    width: 80%
+    transform: translate(0, -130%)
+    transition: transform 0.3s ease
+
+@media screen and ( max-width: 400px )
+    .hero__text
+        transform: translate(0, -120%)
+    
+    #text_container_1
+        font-size: 20pt
+
+    #text_container_2
+        font-size: 10pt
+
+@media screen and ( min-width: 401px )
+    #text_container_1
+        font-size: $herotext_mobile_size
+
+    #text_container_2
+        font-size: $hero_subtext_mobile_size
+
+
+@media screen and (min-width: 1000px)
+    .hero_img__faded
+        object-fit: cover
+
+    #text_container_1
+        font-size: $herotext_desktop_size
+
+    #text_container_2
+        font-size: $hero_subtext_desktop_size
+
+    .hero__text
+        width: 90%
+        margin-left: 20px
+        transform: translate(0, -130%)
+    
+    .hero_img__faded
+        height: 650px

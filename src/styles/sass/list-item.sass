@@ -1,0 +1,22 @@
+.list-restaurants
+    display: grid
+    justify-content: center
+    grid-gap: 25px
+    
+
+@media screen and(max-width: 600px) 
+    .list-restaurants
+        grid-template-columns: auto
+        padding: 25px
+
+@media screen and(min-width: 601px)
+    .list-restaurants
+        grid-template-columns: 520px
+
+@media screen and(min-width: 1001px)
+    .list-restaurants
+        grid-template-columns: 500px 500px
+
+@media screen and(min-width: 1250px)
+    .list-restaurants
+        grid-template-columns: 440px 440px 440px

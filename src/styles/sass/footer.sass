@@ -1,0 +1,38 @@
+footer
+    position: fixed
+    bottom: 0
+    left: 0
+    background-color: black
+    width: 100%
+    padding: 12px
+    display: grid
+    grid-template-columns: auto auto
+
+footer .footer_left
+    font-family: 'Quicksand', 'Verdana', sans-serif
+    font-size: 12pt
+    font-weight: 100
+    color: white
+
+
+footer .footer_right
+    color: white
+    font-family: 'Quicksand', 'Verdana', sans-serif
+    font-size: 12pt
+    font-weight: 100
+    text-align: right
+    
+@media screen and(max-width: 600px)
+    footer 
+        grid-template-columns: auto
+        .footer_left, .footer_right
+            text-align: center
+    
+
+footer.close
+    transform: translate(0, 150%)
+    transition: transform 1s ease
+
+footer.open
+    transform: translate(0, 0)
+    transition: transform 1s ease

@@ -1,0 +1,156 @@
+
+
+$fontcolor_all_textlogo_1 : #000000
+$fontcolor_all_textlogo_2 : #d76700
+$fontfamily_all_text_logo : 'Quicksand', sans-serif
+$fontstyle_all_text_logo : bold
+$fontfamily_all_nav_item : 'Roboto', serif 
+// mobile css variables
+
+$fontsize_mobile_textlogo : 24pt
+$iconssize_mobile_menu : 44px
+$fontsize_mobile_nav_item : 13pt
+$fontstyle_mobile_nav_item : light
+
+// desktop size 
+
+$fontsize_desktop_textlogo : 30pt
+$iconssize_desktop_menu : 70px
+$fontsize_desktop_nav_item : 30pt
+$fontstyle_desktop_nav_item : regular
+
+
+.wrapper
+    padding: 10px
+    width: 100%
+    position: sticky -webkit-sticky
+    display: grid
+    grid-template-columns: 80px auto 300px
+
+.container__logo 
+    display: inline
+
+.logo_brand
+    display: flex
+    margin: 0 auto
+    width: 100%
+    margin-left: 12px
+
+.logo_brand_title_1
+    font-family: $fontfamily_all_text_logo
+    font-style: $fontstyle_all_text_logo
+    color: $fontcolor_all_textlogo_1
+    font-size: $fontsize_desktop_textlogo
+    margin: auto 0
+
+
+.logo_brand_title_2
+    font-family: $fontfamily_all_text_logo
+    font-style: $fontstyle_all_text_logo
+    color: $fontcolor_all_textlogo_2
+    font-size: $fontsize_desktop_textlogo
+    margin: auto 0
+
+#menu 
+    width: $iconssize_mobile_menu
+    display: none
+
+#logo 
+    width: $iconssize_desktop_menu
+    display: block
+    margin: 0 auto
+
+.nav_drawer 
+    width: 100%
+    margin-left: auto
+    margin-right: auto
+    text-align: center
+    background-color: inherit
+
+.nav_list 
+    list-style-type: none
+    width: 100%
+    padding: 0
+    margin: 0
+
+.nav_item
+    background-color: inherit
+    box-sizing: border-box
+    display: inline-block
+    text-align: center
+    line-height: 24px
+
+.nav_drawer a 
+    font-family: $fontfamily_all_nav_item
+    display: inline-block
+    padding: 1.3em
+    text-decoration: none
+    font-style: regular
+    color: #616161
+
+.nav_drawer a:hover 
+    text-decoration: underline
+    color: #000
+
+
+@media screen and(min-width: 601px)
+    #nav-slider
+        display: none
+
+@media screen and(max-width: 600px)
+    .logo_brand_title_1 
+        font-size: $fontsize_mobile_textlogo
+    .logo_brand_title_2
+        font-size: $fontsize_mobile_textlogo
+        
+    .wrapper 
+        grid-template-columns: 60px auto
+    #menu
+        display: block
+        margin: 0 auto
+
+    .logo_brand 
+        width: unset
+        margin-left: unset
+        margin: 0 auto
+        padding-right: 30px
+    #logo 
+        display: none
+
+    .nav_drawer 
+        z-index: 10
+        background-color: #ffffff
+        width: 300px
+        position: absolute
+        -webkit-transform: translate(-300px, 0)
+        transform: translate(-300px, 0)
+
+        transition: transform 0.8s ease
+
+    .open
+        -webkit-transform: translate(315px, 0)
+        transform: translate(315px, 0)
+        transition: transform 0.8s ease
+    
+    .close 
+        -webkit-transform: translate(-300px, 0)
+        transform: translate(-300px, 0)
+        transition: transform 0.8s ease
+
+    .nav_item
+        display: list-item
+        border-bottom: 1px solid #E0E0E0
+        width: 100%
+        text-align: left
+
+    header .nav-wrapper 
+        display: none
+
+
+    
+    
+
+
+
+    
+    

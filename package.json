@@ -47,6 +47,7 @@
   },
   "dependencies": {
     "@types/jquery": "^3.5.2",
+    "idb": "^5.0.7",
     "jquery": "^3.5.1",
     "material-icons": "^0.3.1",
     "regenerator-runtime": "^0.13.5"

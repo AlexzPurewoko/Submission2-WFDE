@@ -7,7 +7,7 @@ const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
-  entry: path.resolve(__dirname, 'src/scripts/index.ts'),
+  entry: path.resolve(__dirname, 'src/scripts/n_index.ts'),
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'scripts/[name]-[hash].app.js',
@@ -101,7 +101,7 @@ module.exports = {
       }
     }),
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, 'src/templates/index.html'),
+      template: path.resolve(__dirname, 'src/templates/n_index.html'),
       filename: 'index.html',
     }),
     new CopyWebpackPlugin({

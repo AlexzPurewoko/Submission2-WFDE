@@ -17,6 +17,7 @@ class MainApplication extends HTMLElement {
     private currentActivityInfo: ActivityInfo = null;
     private currentActivityRef: BaseActivity = null;
     private activityBackStack: BackStackProperty[] = [];
+    private currentHash: string = ""
 
     private listenerReference = {
         hashChange: (e: Event) => this.onHashChanged(e),
@@ -32,7 +33,7 @@ class MainApplication extends HTMLElement {
     runApplication() {
         
         // if its empty, then start root/homepage.
-        if(window.location.hash === ""){
+        if(window.location.hash === "" || window.location.hash === "#"){
             const homepageInfo = this._manifest.activities.get(this._manifest.homepage);
             this.moveToNextActivity(homepageInfo, null);
         } else {
@@ -45,9 +46,9 @@ class MainApplication extends HTMLElement {
             this.moveToNextActivity(activityInfo, parameters);
         }
         // register the event action
-        document.addEventListener('hashchange', this.listenerReference.hashChange);
-        document.addEventListener("resize", this.listenerReference.onResize);
-        document.addEventListener("scroll", this.listenerReference.onScroll);
+        window.onhashchange = this.listenerReference.hashChange;
+        window.onscroll = this.listenerReference.onScroll;
+        window.onresize = this.listenerReference.onResize;
     }
 
     // Preferred only for activity instance to ensures that they 
@@ -55,7 +56,6 @@ class MainApplication extends HTMLElement {
     activityBack() {
         const lastElement = this.getBackStackLastElement();
         if(!lastElement) {
-            console.log("Cannot back, because the instance is null");
             return;
         }
         window.location.hash = '#' + lastElement.hashURI;
@@ -86,26 +86,26 @@ class MainApplication extends HTMLElement {
         this.innerHTML = '';
         this.append(activity);
         activity.onResumed();
+        this.currentHash = window.location.hash.slice(1);
     }
 
     private backToLastActivity() {
 
-        if(this.activityBackStack.length <= 1) return;
+        if(this.activityBackStack.length < 1) {
+            return;
+        }
         const currentStack = this.activityBackStack.pop();
-        const currentLifecycle = <LifecycleCallback> currentStack.element;
-        currentLifecycle.onDestroy();
 
-        const targetActivity = this.getBackStackLastElement();
-        targetActivity.element.onResumed();
+        // destroy current activity
+        this.currentActivityRef.onDestroy();
 
-        this.applyActivity(targetActivity.element, targetActivity.activityInfo);
+        this.applyActivity(currentStack.element, currentStack.activityInfo);
     }
 
     private moveToNextActivity(activityInfo: ActivityInfo, params: any[]){
         const actCreated = this.createActivity(activityInfo);
         actCreated.onCreated(params);
-
-        if(!activityInfo.isRootActivity || this.currentActivityRef === null){
+        if(!activityInfo.isRootActivity && this.currentActivityRef !== null){
 
             // push the current activity to backstack
             this.pushToStack();
@@ -115,14 +115,13 @@ class MainApplication extends HTMLElement {
         } else {
             this.activityBackStack = [];
         }
-        
         // apply created activity to show
         this.applyActivity(actCreated, activityInfo);
     }
 
     private pushToStack() {
         const backStackProperty: BackStackProperty = {
-            hashURI: window.location.hash.slice(1),
+            hashURI: this.currentHash,
             element: this.currentActivityRef,
             activityInfo: this.currentActivityInfo
         }
@@ -130,11 +129,13 @@ class MainApplication extends HTMLElement {
     }
 
     private onScrollChange(event: Event){
+        console.log("onscroll");
         if(!this.currentActivityRef) return;
         const lifecycleCb = <LifecycleCallback> this.currentActivityRef;
         lifecycleCb.onScrollEvent(event);
     }
     private onResizeCallback(event: Event) {
+        console.log("onresize");
         if(!this.currentActivityRef) return;
         const lifecycleCb = <LifecycleCallback> this.currentActivityRef;
         lifecycleCb.onResizeEvent(event);
@@ -144,7 +145,8 @@ class MainApplication extends HTMLElement {
         const hash = window.location.hash.slice(1);
         const urlParts = hash.split("/");
 
-        const isFound = this.activityBackStack.findIndex(item => item.hashURI === hash) === this.activityBackStack.length - 1 ? true: false;
+        const lenBackStack = this.activityBackStack.length;
+        const isFound = lenBackStack != 0 && this.activityBackStack.findIndex(item => item.hashURI === hash) === this.activityBackStack.length - 1;
         const activity = urlParts[1];
 
         // if is just back to the last activity, then it will 
@@ -154,7 +156,7 @@ class MainApplication extends HTMLElement {
             // if its not back, then add it into stack...
             const parameters = urlParts.splice(2, urlParts.length);
             const getActivityInfo = this._manifest.activities.get(activity);
-
+            
             this.moveToNextActivity(getActivityInfo, parameters);
         }
     }

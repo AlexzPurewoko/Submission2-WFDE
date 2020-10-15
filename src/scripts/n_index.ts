@@ -1,13 +1,13 @@
+import './n_ui/allcustom_components';
 import { IAllResponse } from "./n_logic/api/allresponse/IAllResponse";
 import { IPostReview } from "./n_logic/api/data/review/IPostReview";
 import GetAllRestaurants from "./n_logic/api/modules/list/GetAllRestaurants"
 import PostReview from "./n_logic/api/modules/reviewResult/PostReview";
 import MainApplication from "./n_ui/application/application"
 
-
 $(() => {
     //new MainApplication().runApplication();
-    const cb = {
+    /*const cb = {
         onFinished: (data: IAllResponse) => console.log(data),
         onLoad: () => {console.log("onLoad()")}
     };
@@ -19,5 +19,7 @@ $(() => {
     }
     const a = new PostReview(reviewData);
     a.callbacks = cb;
-    a.startLoad();
+    a.startLoad();*/
+    const application =<MainApplication> $('application-main')[0];
+    application.runApplication();
 })

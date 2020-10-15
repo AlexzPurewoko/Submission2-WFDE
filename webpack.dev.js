@@ -11,6 +11,14 @@ module.exports = merge(common, {
     port: 8080,
     disableHostCheck: true,
     open: true
-    
+  },
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        use: 'ts-loader',
+      },
+    ]
   }
 });

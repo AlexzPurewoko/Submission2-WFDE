@@ -11,6 +11,23 @@ module.exports = merge(common, {
   },
   devtool: 'source-map',
   module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: "babel-loader",
+            options: {
+                presets: ["@babel/preset-env"]
+            }
+          },
+          {
+            loader: 'ts-loader'
+          }
+        ]
+      },
+    ]
     /*rules: [
       {
         test: /\.js$/,

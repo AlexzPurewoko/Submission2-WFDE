@@ -7,7 +7,7 @@ import { LifecycleCallback } from "../../application/callback/LifecycleCallback"
 abstract class BaseActivity extends HTMLElement implements LifecycleCallback {
     
 
-    private _application: MainApplication = null;
+    protected _application: MainApplication = null;
     private _db: DatabaseHelper = null; 
 
 

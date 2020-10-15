@@ -34,7 +34,8 @@ class MainApplication extends HTMLElement {
         
         // if its empty, then start root/homepage.
         if(window.location.hash === "" || window.location.hash === "#"){
-            const homepageInfo = this._manifest.activities.get(this._manifest.homepage);
+            const page = this._manifest.mode === "test" ? this._manifest.testPage : this._manifest.homepage;
+            const homepageInfo = this._manifest.activities.get(page);
             this.moveToNextActivity(homepageInfo, null);
         } else {
             const hashGet = window.location.hash.slice(1);

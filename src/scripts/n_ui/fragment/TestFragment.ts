@@ -2,18 +2,21 @@ import Fragment from "./base/Fragment";
 
 class TestFragment extends Fragment {
 
-
-    protected onRenderPage(): void {
+    onRenderPage(): void {
         this.render();
     }
-    protected onSaveState(): void {
+    onSaveState(): void {
         
     }
-    protected onDestroy(): void {
+    onDestroy(): void {
         
     }
-    protected titleFragment(): string {
+    titleFragment(): string {
         return "TestFragment";
+    }
+
+    onReceiveMessage(key: string, value: any): void {
+        
     }
 
     private render() {

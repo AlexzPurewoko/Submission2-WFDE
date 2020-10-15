@@ -13,6 +13,7 @@ class HomeActivity extends BaseActivity {
     }
 
     onCreated(params: any[]): void {
+        super.onCreated(params);
         this.render();
         console.log(params);
         this.textP = this.querySelector("p");

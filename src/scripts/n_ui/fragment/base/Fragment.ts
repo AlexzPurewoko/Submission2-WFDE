@@ -7,8 +7,8 @@ abstract class Fragment extends HTMLElement {
     private _arguments: any = null;
     private _cb: FragmentCallback = null;
 
-    constructor(_db: DatabaseHelper, _cb: FragmentCallback){
-        super();
+
+    initialize(_db: DatabaseHelper, _cb: FragmentCallback){
         this._db = _db;
         this._cb = _cb;
     }
@@ -31,10 +31,11 @@ abstract class Fragment extends HTMLElement {
         }
     }
 
-    protected abstract onRenderPage(): void
-    protected abstract onSaveState(): void
-    protected abstract onDestroy(): void
-    protected abstract titleFragment(): string
+    abstract onRenderPage(): void
+    abstract onSaveState(): void
+    abstract onDestroy(): void
+    abstract titleFragment(): string
+    abstract onReceiveMessage(key: string, value: any): void
 }
 
 export default Fragment;

@@ -5,6 +5,7 @@ class DetailActivity extends BaseActivity {
 
     private buttonBack: Button = null;
     onCreated(params: any[]): void {
+        super.onCreated(params);
         this.innerHTML = `
             <p>${params[0]}</p>
             <button>Back click</button>

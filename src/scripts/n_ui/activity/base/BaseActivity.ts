@@ -2,6 +2,7 @@ import DatabaseHelper from "../../../n_logic/db/helper/DatabaseHelper";
 import MainDatabase from "../../../n_logic/db/MainDatabase";
 import MainApplication from "../../application/application";
 import { LifecycleCallback } from "../../application/callback/LifecycleCallback";
+import { FgAdapterCallback, FragmentAdapter } from "../../fragment/base/FragmentAdapter";
 
 
 abstract class BaseActivity extends HTMLElement implements LifecycleCallback {
@@ -9,6 +10,7 @@ abstract class BaseActivity extends HTMLElement implements LifecycleCallback {
 
     protected _application: MainApplication = null;
     private _db: DatabaseHelper = null; 
+    protected fragmentAdapter: FragmentAdapter = null;
 
 
     set application(app: MainApplication) {
@@ -28,7 +30,17 @@ abstract class BaseActivity extends HTMLElement implements LifecycleCallback {
     }
 
     // let's the child class override this method
-    abstract onCreated(params: any[]): void 
+    onCreated(params: any[]): void {
+        const cb: FgAdapterCallback = {
+            onNotify: (fgKey: string, key: string, value: any) => {
+                this.onReceiveFragmentCallback(fgKey, key, value);
+            }
+        }
+        this.fragmentAdapter = new FragmentAdapter(this._db, cb);
+    }
+    onReceiveFragmentCallback(fgKey: string, key: string, value: any){
+        // empty implementation, child must implement if they are an fragment on it
+    }
     abstract onPaused(): void 
     abstract onResumed(): void 
     abstract onDestroy(): void

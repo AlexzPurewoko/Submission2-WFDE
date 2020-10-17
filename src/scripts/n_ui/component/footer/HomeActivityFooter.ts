@@ -6,9 +6,6 @@ class HomeActivityFooter extends HTMLElement {
 
     private _cb: NavItemCallback = null;
 
-    connectedCallback() {
-        this.render();
-    }
 
     set callback(_nCb: NavItemCallback){
         this._cb = _nCb;
@@ -22,7 +19,7 @@ class HomeActivityFooter extends HTMLElement {
         this.toggle(elmTarget);
     }
 
-    private render() {
+    render() {
         this.innerHTML = `
             <nav class="tab-left">
                 <ul>
@@ -63,7 +60,7 @@ class HomeActivityFooter extends HTMLElement {
 
             // resolving data
             const targetHref = target.getAttribute("data-target");
-            this._cb?.onClick(targetHref);
+            this._cb(this, targetHref);
         });
     }
 
@@ -73,6 +70,7 @@ class HomeActivityFooter extends HTMLElement {
 
             // switch on
         target.classList.add("footer-nav-item-active");
+        this._cb(this, target.getAttribute("data-target"));
         target.style.color = "#fff";
     }
 

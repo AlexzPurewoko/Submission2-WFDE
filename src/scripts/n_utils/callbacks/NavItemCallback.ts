@@ -1,3 +1,3 @@
 export default interface NavItemCallback {
-    onClick(hrefAnchor: string): void
+    (elmRef: HTMLElement, hrefAnchor: string) : void
 };

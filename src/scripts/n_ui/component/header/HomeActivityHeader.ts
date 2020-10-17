@@ -4,9 +4,6 @@ import NavItemCallback from "../../../n_utils/callbacks/NavItemCallback";
 class HomeActivityHeader extends HTMLElement {
     
     private _cb?: NavItemCallback = null;
-    connectedCallback() {
-        this.render();
-    }
 
     set callback(nCallback: NavItemCallback){
         this._cb = nCallback;
@@ -20,7 +17,7 @@ class HomeActivityHeader extends HTMLElement {
         this.toggle(elmTarget);
     }
     
-    private render() {
+    render() {
         this.innerHTML = `
             <div class='container__logo' >
                 <input 
@@ -88,16 +85,9 @@ class HomeActivityHeader extends HTMLElement {
     }
 
     private sendCallbackClickItem(content: string){
-        this._cb?.onClick(content);
+        this._cb(this, content);
     }
 
-    private addActiveBg(target: HTMLElement) {
-        const parentUl = target.parentElement.parentElement;
-
-        this.switchOffAll(parentUl.children);
-
-        target.classList.add("active");
-    }
 
     private switchOffAll(childrens: HTMLCollection){
         for(let x=0; x < childrens.length; x++){

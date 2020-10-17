@@ -1,3 +1,6 @@
 export const FragmentManifest: string[] = [
-    "test-fragment"
+    "test-fragment",
+    "about-fragment",
+    "favorite-fragment",
+    "dashboard-fragment"
 ];

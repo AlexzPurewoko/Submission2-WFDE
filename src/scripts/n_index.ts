@@ -1,4 +1,4 @@
-import './n_ui/allcustom_components';
+import './n_ui/uireference';
 import 'material-icons';
 import 'material-icons/css/material-icons.min.css';
 import MainApplication from "./n_ui/application/application";

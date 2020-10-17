@@ -1,3 +1,5 @@
+import "../../../styles/n_sass/main/main.sass";
+
 import MainDatabase from "../../n_logic/db/MainDatabase";
 import BaseActivity from "../activity/base/BaseActivity";
 import { LifecycleCallback } from "./callback/LifecycleCallback";

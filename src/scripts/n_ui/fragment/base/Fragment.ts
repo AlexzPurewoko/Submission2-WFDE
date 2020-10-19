@@ -1,6 +1,12 @@
 import DatabaseHelper from "../../../n_logic/db/helper/DatabaseHelper";
 import { FragmentCallback } from "./FragmentCallback";
 
+export enum GeneralCb {
+    MESSAGE_ONRESIZE = "onresize",
+    MESSAGE_ONSCROLL = "onscroll",
+    MESSAGE_DATA = "data",
+    MESSAGE_OTHERS = "other_message"
+}
 abstract class Fragment extends HTMLElement {
 
     private _db: DatabaseHelper = null;
@@ -25,7 +31,7 @@ abstract class Fragment extends HTMLElement {
         return this._db;
     }
 
-    protected send(key: string, value: any){
+    send(key: GeneralCb, value: any){
         if(this._cb){
             this._cb.onReceive(key, value);
         }
@@ -35,7 +41,7 @@ abstract class Fragment extends HTMLElement {
     abstract onSaveState(): void
     abstract onDestroy(): void
     abstract titleFragment(): string
-    abstract onReceiveMessage(key: string, value: any): void
+    abstract onReceiveMessage(key: GeneralCb, value: any): void
 }
 
 export default Fragment;

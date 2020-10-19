@@ -4,3 +4,5 @@ import "./hero/HomeHero";
 import "./restaurant_item/RestaurantItem";
 import  "./rating/RatingIcons";
 import "./modal/ModalElement";
+import "./search/SearchElement";
+import "./restaurant_list/RestaurantList";

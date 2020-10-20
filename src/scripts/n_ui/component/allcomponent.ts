@@ -6,3 +6,5 @@ import  "./rating/RatingIcons";
 import "./modal/ModalElement";
 import "./search/SearchElement";
 import "./restaurant_list/RestaurantList";
+import "./review/ConsumerReview";
+import "./review/AddReview";

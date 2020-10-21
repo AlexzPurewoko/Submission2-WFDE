@@ -8,3 +8,6 @@ import "./search/SearchElement";
 import "./restaurant_list/RestaurantList";
 import "./review/ConsumerReview";
 import "./review/AddReview";
+import "./badge/Badges";
+import "./image/RoundedImages";
+import "./detail/DetailSummary";

@@ -1,3 +1,5 @@
+@use '../base/utils'
+
 search-box > .search-container
     min-width: 300px
     border-style: solid
@@ -39,6 +41,6 @@ search-box .submit > i
     vertical-align: middle
 
 search-box .submit:hover
-    background-color: #d76700
+    background-color: utils.$base_color
     i
         color: #fff

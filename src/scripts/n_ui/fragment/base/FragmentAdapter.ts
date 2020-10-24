@@ -2,7 +2,7 @@ import { create } from "lodash";
 import DatabaseHelper from "../../../n_logic/db/helper/DatabaseHelper";
 import BaseActivity from "../../activity/base/BaseActivity";
 import MainApplication from "../../application/application";
-import Fragment from "./Fragment";
+import Fragment, { GeneralCb } from "./Fragment";
 import { FragmentCallback } from "./FragmentCallback";
 import { FragmentManifest } from "./FragmentManifest";
 
@@ -22,8 +22,9 @@ export class FragmentAdapter {
     }
     attachFragment(key: string, fragmentName: string, addTo: HTMLElement, argument: any = null){
         const isAny = FragmentManifest.includes(fragmentName);
+        console.log("attach ", key, isAny)
         if(!isAny || this._fragments.has(key)) return;
-
+        
         const created = <Fragment> document.createElement(fragmentName);
 
         // initialize callbacks 
@@ -38,6 +39,7 @@ export class FragmentAdapter {
         created.onRenderPage();
         this._fragments.set(key, created);
         this._referenceDOM.set(key, addTo);
+        created.setAttribute("style", "display:none;");
         addTo.append(created);
     }
 
@@ -76,7 +78,7 @@ export class FragmentAdapter {
         });
     }
 
-    sendMessage(fragmenTargetkey: string, key: string, value: any){
+    sendMessage(fragmenTargetkey: string, key: GeneralCb, value: any){
         if(!this._fragments.has(fragmenTargetkey)) return;
         this._fragments.get(fragmenTargetkey).onReceiveMessage(key, value);
     }

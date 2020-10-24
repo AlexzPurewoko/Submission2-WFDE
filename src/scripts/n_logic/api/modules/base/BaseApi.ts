@@ -4,6 +4,7 @@ import ApiCallbacks from "./ApiCallbacks";
 
 abstract class BaseApi {
     private _callbacks : ApiCallbacks = null;
+    private _isRunning: boolean = false;
 
     protected abstract fetchPromise(): Promise<Response>
 
@@ -14,22 +15,28 @@ abstract class BaseApi {
         
         try {
             this._callbacks.onLoad();
+            this._isRunning = true
             const response = await this.fetchPromise();
             const json = await response.json();
             const servedData = await this.serveData(json);
 
-            this._callbacks.onFinished({
+            this._callbacks?.onFinished({
                 isSuccess: true,
                 error: null,
                 response: servedData
             });
         } catch(errorResponse: any) {
-            this._callbacks.onFinished({
+            this._callbacks?.onFinished({
                 isSuccess: false,
                 error: errorResponse,
                 response: null
             });
         }
+        this._isRunning = false;
+    }
+
+    get isRunning() : boolean {
+        return this._isRunning;
     }
 
     set callbacks(newCallbacks: ApiCallbacks){

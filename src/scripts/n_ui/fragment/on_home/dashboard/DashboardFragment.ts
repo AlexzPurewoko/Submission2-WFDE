@@ -1,23 +1,16 @@
 import { IRestaurantItem } from "../../../../n_logic/api/data/lists/IRestaurantItem";
-import { endpoint } from "../../../../n_logic/api/endpoint/endpoint";
-import { ImageSize } from "../../../../n_logic/api/endpoint/ImageSize";
-import RestaurantItemClickCb from "../../../../n_utils/callbacks/RestaurantItemClickCb";
-import SearchElementCb from "../../../../n_utils/callbacks/SearchElementCb";
 import HomeHero from "../../../component/hero/HomeHero";
-import RestaurantItem from "../../../component/restaurant_item/RestaurantItem";
 import RestaurantList from "../../../component/restaurant_list/RestaurantList";
 import SearchElement from "../../../component/search/SearchElement";
 import Fragment, { GeneralCb } from "../../base/Fragment";
 import "../../../../../styles/n_sass/fragments/dashboard.sass";
 import SpacerLine, { SpacerAttrs } from "../../../component/spacer/SpacerLine";
-import { head } from "lodash";
 import GetAllRestaurants from "../../../../n_logic/api/modules/list/GetAllRestaurants";
 import RequestSearch from "../../../../n_logic/api/modules/searchResult/RequestSearch";
 import ApiCallbacks from "../../../../n_logic/api/modules/base/ApiCallbacks";
 import { IAllResponse } from "../../../../n_logic/api/allresponse/IAllResponse";
 import BaseApi from "../../../../n_logic/api/modules/base/BaseApi";
 import { IRestaurantResponse } from "../../../../n_logic/api/data/lists/IRestaurantResponse";
-import ShimmerLoading from "../../../component/loading/ShimmerLoading";
 import * as utils from "./_utils";
 
 

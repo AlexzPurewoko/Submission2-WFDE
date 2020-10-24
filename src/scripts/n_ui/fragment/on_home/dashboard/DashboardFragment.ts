@@ -44,10 +44,13 @@ class DashboardFragment extends Fragment implements ApiCallbacks {
     private spacerLine: SpacerLine = null;
     private restaurantList: RestaurantList = null;
     private shimmerLoadingView: HTMLElement = null;
+    private titleSearchGroup: HTMLElement = null;
 
 
 
     private apiRest: BaseApi = null;
+    private isTitleSearchOnTop : boolean = false;
+    private tempTitleSearchOffsetTop: number = 0;
     
 
     onRenderPage(): void {
@@ -57,10 +60,10 @@ class DashboardFragment extends Fragment implements ApiCallbacks {
         this.searchElement = this.querySelector("search-box");
         this.restaurantList = this.querySelector("restaurant-list");
         this.shimmerLoadingView = this.querySelector(".loading-view");
+        this.titleSearchGroup = this.querySelector(".main > .titles");
         
 
         this.homeHero.render();
-        this.homeHero.resumeAnim();
         this.searchElement.searchCallback = (text: string) => {
             this.onSearch(text);
         }
@@ -72,20 +75,33 @@ class DashboardFragment extends Fragment implements ApiCallbacks {
         // display shimmer loading 
         this.defineSpacer();
         
+        // display initiate page
+        this.apiRest = new GetAllRestaurants();
+        this.apiRest.callbacks = this;
+        this.apiRest.startLoad();
+
+        this.homeHero.resumeAnim();
         
     }
     onSaveState(): void {
         this.homeHero.pauseAnim();
     }
     onDestroy(): void {
+        this.homeHero.pauseAnim();
         
     }
     titleFragment(): string {
         return "Home";
     }
     onReceiveMessage(key: GeneralCb, value: any): void {
-        if(key === GeneralCb.MESSAGE_ONRESIZE) {
-            this.defineSpacer();
+        switch(key){
+            case GeneralCb.MESSAGE_ONRESIZE: {
+                this.defineSpacer();
+            }
+            break;
+            case GeneralCb.MESSAGE_ONSCROLL: {
+                this.checkAndFixedTopSearchTitles();
+            }
         }
     }
 
@@ -102,7 +118,6 @@ class DashboardFragment extends Fragment implements ApiCallbacks {
             const resp = <IRestaurantResponse> data.response;
             this.renderListRestaurant(resp.restaurants);
         }
-        console.log(data);
     }
 
     private render() : string {
@@ -124,6 +139,26 @@ class DashboardFragment extends Fragment implements ApiCallbacks {
         `;
     }
 
+    private checkAndFixedTopSearchTitles() {
+        const titleOffsetTop = this.titleSearchGroup.offsetTop
+        const wOffsetTop = window.pageYOffset;
+
+        const sTitleClassList = this.titleSearchGroup.classList;
+        if(titleOffsetTop < wOffsetTop && !this.isTitleSearchOnTop){
+            
+            if(!sTitleClassList.contains("fixed-top-titles")){
+                this.isTitleSearchOnTop = true;
+                this.tempTitleSearchOffsetTop = this.titleSearchGroup.offsetTop;
+                sTitleClassList.add("fixed-top-titles");
+            }
+        } 
+        if(this.isTitleSearchOnTop && this.tempTitleSearchOffsetTop > wOffsetTop) {
+
+            sTitleClassList.remove("fixed-top-titles");
+            this.isTitleSearchOnTop = false;
+        }
+    }
+
     private defineSpacer() {
         if(window.innerWidth <= 700) {
             this.swSpacer("horizontal");
@@ -142,7 +177,6 @@ class DashboardFragment extends Fragment implements ApiCallbacks {
     }
 
     private renderListRestaurant(restaurantItem: IRestaurantItem[]){
-        console.log(restaurantItem);
         this.restaurantList.render(restaurantItem);
     } 
 

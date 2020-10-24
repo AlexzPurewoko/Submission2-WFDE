@@ -1,0 +1,47 @@
+@use "../base/utils"
+
+dashboard-fragment
+    .main 
+        .titles
+            display: grid
+            grid-template-columns: auto 12px auto
+            vertical-align: middle
+
+        .titles > .title-search
+            font-family: utils.$quicksand_font
+            text-align: center
+
+            & + spacer-line > div
+                margin: 10px auto 10px
+            
+        .titles > search-box > .search-container
+            width: 300px
+            margin-bottom: 20px
+        
+        .loading-view 
+            display: none
+            display: grid
+            grid-gap: 20px
+            justify-content: center
+
+@media screen and(max-width: 600px)
+    dashboard-fragment .loading-view
+        grid-template-columns: auto
+
+@media screen and(min-width: 601px)
+    dashboard-fragment .loading-view
+        grid-template-columns: 520px
+
+@media screen and(min-width: 695px)
+    dashboard-fragment .loading-view
+        grid-template-columns: 310px 310px
+
+@media screen and(max-width: 700px)
+    dashboard-fragment .titles 
+        grid-template-columns: auto
+
+@media screen and(min-width: 1005px)
+    dashboard-fragment .loading-view
+        grid-template-columns: 310px 310px 310px
+
+

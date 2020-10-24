@@ -21,9 +21,10 @@ class RestaurantItem extends HTMLElement {
         const data = this._data;
         let currentHash = window.location.hash;
         currentHash = currentHash === "" ? "#" : currentHash;
+        console.log(data.pictureLocation);
         this.innerHTML = `
                     <div class="card-item-container">
-                        <img src=${data.pictureId} alt='${data.name} image'></img>
+                        <img src=${data.pictureLocation} alt='${data.name} image'></img>
                         
                         <div class='item-header-text' tabIndex='0' role='heading' aria-label='Restaurant ${data.name} from ${data.city}'>
                             <p class='item-header-subtitle'><i class='material-icons'>location_on</i> ${data.city}</p>
@@ -41,10 +42,19 @@ class RestaurantItem extends HTMLElement {
                     <modal-element></modal-element>
         `;
 
+        this.implementOnLoadImg();
         this.prepareModal();
         this.implementClick();
     }
 
+    private implementOnLoadImg(){
+        this.querySelector(".card-item-container > img").addEventListener("load", (e: Event) => {
+            const a : HTMLElement = <HTMLElement> e.target;
+            const parent = a.parentElement;
+            parent.style.minHeight = "unset"
+            parent.style.minWidth = "unset"
+        })
+    }
     private prepareModal() {
         this._modalElement = this.querySelector("modal-element");
         this._modalElement.content = `
@@ -54,7 +64,7 @@ class RestaurantItem extends HTMLElement {
         this._modalElement.render();
     }
 
-    implementClick() {
+    private implementClick() {
         this.querySelector(".grid-header-2 a").addEventListener("click", (e: Event) => {
             this._modalElement?.toggleModal();
             e.preventDefault();

@@ -1,20 +1,52 @@
-import Fragment from "../../base/Fragment"
-
+import RoundedImages from "../../../component/image/RoundedImages";
+import Fragment from "../../base/Fragment";
+import "../../../../../styles/n_sass/fragments/about.sass";
+import * as utils from "./_utils";
 class AboutFragment extends Fragment {
+
+    private roundedImages: RoundedImages = null;
     onRenderPage(): void {
-        throw new Error("Method not implemented.");
+        this.innerHTML = this.render();
+
+        this.roundedImages = this.querySelector("rounded-images");
+        this.roundedImages.properties = {
+            src: "/images/profile.jpg",
+            alt: "Alexzander Purwoko Widiantoro's photo"
+        };
+        this.roundedImages.render();
+
     }
     onSaveState(): void {
-        throw new Error("Method not implemented.");
+        
     }
     onDestroy(): void {
-        throw new Error("Method not implemented.");
+        
     }
     titleFragment(): string {
-        throw new Error("Method not implemented.");
+        return "AboutMe";
     }
     onReceiveMessage(key: string, value: any): void {
-        throw new Error("Method not implemented.");
+        
+    }
+
+    private render() {
+        return `
+            <div class="container">
+                <rounded-images></rounded-images>
+                <div class="content-description">
+                    <h1>Alexzander Purwoko Widiantoro</h1>
+                    <h2>Technology Enthusiasts</h2>
+                    <p>Iam a people who highly enthusiastic in IT, learner and have a passion in programming. Since
+                    2014, I study more about programming. Now, I hava a skills on Android & Web Development, and have an enthusiasts 
+                    on IoT Technologies. Finally, thanks to Dicoding Indonesia that give me some class for upskilling :) 
+                    <div class="button-layout">
+                        <button>${utils.linkedInSvg}LinkedIn</button>
+                        <button>${utils.githubSvg}GitHub</button>
+                    </div>
+                </div>
+                
+            </div>
+        `;
     }
 
 }

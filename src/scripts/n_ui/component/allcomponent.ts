@@ -11,3 +11,5 @@ import "./review/AddReview";
 import "./badge/Badges";
 import "./image/RoundedImages";
 import "./detail/DetailSummary";
+import "./loading/ShimmerLoading";
+import "./spacer/SpacerLine";

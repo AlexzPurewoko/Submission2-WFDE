@@ -12,6 +12,7 @@ import { IAllResponse } from "../../../../n_logic/api/allresponse/IAllResponse";
 import BaseApi from "../../../../n_logic/api/modules/base/BaseApi";
 import { IRestaurantResponse } from "../../../../n_logic/api/data/lists/IRestaurantResponse";
 import * as utils from "./_utils";
+import RestaurantItem from "../../../component/restaurant_item/RestaurantItem";
 
 
 const spacerAttrs: SpacerAttrs[] = [
@@ -57,6 +58,9 @@ class DashboardFragment extends Fragment implements ApiCallbacks {
         
 
         this.homeHero.render();
+        this.restaurantList.onItemClick = (restItemRef: RestaurantItem, data: IRestaurantItem) => {
+            window.location.href = `#/DetailActivity/${data.id}`;
+        }
         this.searchElement.searchCallback = (text: string) => {
             this.onSearch(text);
         }

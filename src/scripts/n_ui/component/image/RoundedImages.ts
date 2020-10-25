@@ -2,8 +2,8 @@ import { toPlainObject } from "lodash";
 import "../../../../styles/n_sass/images/rounded-images.sass";
 
 export interface RImageAttrs {
-    readonly attrs?: object;
-    readonly css?: object;
+    readonly attrs?: Record<string, unknown>;
+    readonly css?: Record<string, unknown>;
     readonly src: string;
     readonly alt: string;
 }
@@ -14,7 +14,7 @@ class RoundedImages extends HTMLElement {
     set properties(props: RImageAttrs){
         this._imageAttrs = props;
     }
-    render() {
+    render(): void {
         if(!this._imageAttrs) return;
 
         const imgPath = this._imageAttrs.src;

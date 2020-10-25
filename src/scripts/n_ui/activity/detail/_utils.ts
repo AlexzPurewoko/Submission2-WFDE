@@ -1,4 +1,4 @@
-import { create } from "lodash";
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { IConsumerReview } from "../../../n_logic/api/data/detail/IConsumerReview";
 import { IDetailRestaurantItem } from "../../../n_logic/api/data/detail/IDetailRestaurantItem";
 import { ISingleName } from "../../../n_logic/api/data/detail/ISingleName";

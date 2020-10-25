@@ -1,7 +1,5 @@
-import { create } from "lodash";
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import DatabaseHelper from "../../../n_logic/db/helper/DatabaseHelper";
-import BaseActivity from "../../activity/base/BaseActivity";
-import MainApplication from "../../application/application";
 import Fragment, { GeneralCb } from "./Fragment";
 import { FragmentCallback } from "./FragmentCallback";
 import { FragmentManifest } from "./FragmentManifest";
@@ -20,7 +18,7 @@ export class FragmentAdapter {
         this._accessDb = accessDb;
         this._fgAdapterCbRef = fgCbAdapter;
     }
-    attachFragment(key: string, fragmentName: string, addTo: HTMLElement, argument: any = null){
+    attachFragment(key: string, fragmentName: string, addTo: HTMLElement, argument: any = null): void{
         const isAny = FragmentManifest.includes(fragmentName);
         if(!isAny || this._fragments.has(key)) return;
         
@@ -77,7 +75,7 @@ export class FragmentAdapter {
         });
     }
 
-    sendMessage(fragmenTargetkey: string, key: GeneralCb, value: any){
+    sendMessage(fragmenTargetkey: string, key: GeneralCb, value: any): void{
         if(!this._fragments.has(fragmenTargetkey)) return;
         this._fragments.get(fragmenTargetkey).onReceiveMessage(key, value);
     }

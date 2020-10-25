@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { IRestaurantItem } from "../../../../n_logic/api/data/lists/IRestaurantItem";
 import HomeHero from "../../../component/hero/HomeHero";
 import RestaurantList from "../../../component/restaurant_list/RestaurantList";
@@ -43,8 +45,8 @@ class DashboardFragment extends Fragment implements ApiCallbacks {
 
 
     private apiRest: BaseApi = null;
-    private isTitleSearchOnTop : boolean = false;
-    private tempTitleSearchOffsetTop: number = 0;
+    private isTitleSearchOnTop  = false;
+    private tempTitleSearchOffsetTop = 0;
     
 
     onRenderPage(): void {
@@ -58,7 +60,7 @@ class DashboardFragment extends Fragment implements ApiCallbacks {
         
 
         this.homeHero.render();
-        this.restaurantList.onItemClick = (restItemRef: RestaurantItem, data: IRestaurantItem) => {
+        this.restaurantList.onItemClick = (_restItemRef: RestaurantItem, data: IRestaurantItem) => {
             window.location.href = `#/DetailActivity/${data.id}`;
         }
         this.searchElement.searchCallback = (text: string) => {
@@ -90,7 +92,7 @@ class DashboardFragment extends Fragment implements ApiCallbacks {
     titleFragment(): string {
         return "Home";
     }
-    onReceiveMessage(key: GeneralCb, value: any): void {
+    onReceiveMessage(key: GeneralCb, _value: any): void {
         switch(key){
             case GeneralCb.MESSAGE_ONRESIZE: {
                 this.defineSpacer();
@@ -102,13 +104,13 @@ class DashboardFragment extends Fragment implements ApiCallbacks {
         }
     }
 
-    onLoad() {
+    onLoad(): void{
         // loading goes here...
         utils.toggleView(this.shimmerLoadingView, "show");
         utils.toggleView(this.restaurantList, "off");
     }
 
-    onFinished(data: IAllResponse) {
+    onFinished(data: IAllResponse): void {
         utils.toggleView(this.shimmerLoadingView, "off");
         utils.toggleView(this.restaurantList, "show");
         if(data.isSuccess && data.response.error === false){

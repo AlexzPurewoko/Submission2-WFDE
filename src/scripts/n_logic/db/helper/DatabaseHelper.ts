@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { DBSchema, deleteDB, IDBPDatabase } from "idb";
 import { DBCallbacks } from "../callbacks/DBCallbacks";
 
@@ -6,17 +7,17 @@ abstract class DatabaseHelper {
     private _db : Promise<IDBPDatabase<DBSchema>>  = null;
     private _listCb: DBCallbacks[] = [];
 
-    init() {
+    init() :void  {
         this._db = this.onOpenDb();
     }
 
-    addCallbacks(cb: DBCallbacks){
+    addCallbacks(cb: DBCallbacks): void {
         if(!cb) return;
         if(this._listCb.findIndex(a => a === cb) >= 0) return;
         this._listCb.push(cb);
     }
 
-    removeCallbacks(cb: DBCallbacks) {
+    removeCallbacks(cb: DBCallbacks): void {
         if(!cb) return;
         if(this._listCb.findIndex(a=>a===cb) < 0) return;
         this._listCb = this._listCb.filter(a => a!==cb);

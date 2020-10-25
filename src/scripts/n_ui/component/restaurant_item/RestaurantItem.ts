@@ -2,7 +2,6 @@ import { IRestaurantItem } from "../../../n_logic/api/data/lists/IRestaurantItem
 import RestaurantItemClickCb from "../../../n_utils/callbacks/RestaurantItemClickCb";
 import "../../../../styles/n_sass/restaurant_data/item.sass";
 import ModalElement from "../modal/ModalElement";
-import { event } from "jquery";
 class RestaurantItem extends HTMLElement {
 
     private _data: IRestaurantItem = null;
@@ -18,7 +17,7 @@ class RestaurantItem extends HTMLElement {
         this._cb = cb;
     }
     
-    render() {
+    render(): void {
         const data = this._data;
         let currentHash = window.location.hash;
         currentHash = currentHash === "" ? "#" : currentHash;

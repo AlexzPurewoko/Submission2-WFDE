@@ -9,7 +9,7 @@ class DBCallbacks {
         this._callbacks = nCallbacks;
     }
 
-    onDataChanged(db: DatabaseHelper){
+    onDataChanged(db: DatabaseHelper): void {
         this._callbacks(db);
     }
 }

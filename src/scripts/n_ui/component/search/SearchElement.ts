@@ -7,7 +7,7 @@ class SearchElement extends HTMLElement {
     private _edtText: InputText = null;
 
     private _cb : SearchElementCb = null;
-    private _hasRender: boolean = false;
+    private _hasRender = false;
 
     set searchCallback(callback: SearchElementCb){
         this._cb = callback;
@@ -16,12 +16,13 @@ class SearchElement extends HTMLElement {
         }
     }
 
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     connectedCallback() {
         this.render();
         this._hasRender = true;
     }
 
-    render() {
+    render(): void {
         this.innerHTML = `
             <div class="search-container">
                 <div class="search-icons">
@@ -34,7 +35,7 @@ class SearchElement extends HTMLElement {
         this.initializeElement();
     }
 
-    initializeElement() {
+    initializeElement(): void {
         this._edtText = this.querySelector(".search-input");
         this._btnSearch = this.querySelector(".submit");
 

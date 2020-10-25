@@ -5,7 +5,7 @@ import { ImageSize } from "../../endpoint/ImageSize";
 import BaseApi from "../base/BaseApi";
 
 class GetRestaurantDetail extends BaseApi {
-    private _id : string = "";
+    private _id = "";
 
     set id(nId: string) {
         this._id = nId;
@@ -13,10 +13,10 @@ class GetRestaurantDetail extends BaseApi {
     protected fetchPromise(): Promise<Response> {
         return fetch(endpoint.detail(this._id));
     }
-    protected serveData(jsonData: object): Promise<ApiAllResponse> {
-        const composed: IRestaurantDetailResponse = <IRestaurantDetailResponse> jsonData;
+    protected serveData(jsonData: Record<string, unknown>): Promise<ApiAllResponse> {
+        const composed: IRestaurantDetailResponse = <IRestaurantDetailResponse> <unknown> jsonData;
         composed.restaurant.pictureLocation = endpoint.image(ImageSize.SMALL, composed.restaurant.pictureId);
-        return new Promise((resolve, reject) => resolve(composed));
+        return new Promise((resolve) => resolve(composed));
     }
 
 }

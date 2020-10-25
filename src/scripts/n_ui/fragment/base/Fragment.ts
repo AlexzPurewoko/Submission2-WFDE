@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import DatabaseHelper from "../../../n_logic/db/helper/DatabaseHelper";
 import { FragmentCallback } from "./FragmentCallback";
 
@@ -31,7 +32,7 @@ abstract class Fragment extends HTMLElement {
         return this._db;
     }
 
-    send(key: GeneralCb, value: any){
+    send(key: GeneralCb, value: any): void{
         if(this._cb){
             this._cb.onReceive(key, value);
         }

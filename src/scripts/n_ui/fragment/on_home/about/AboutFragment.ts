@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-empty-function */
 import RoundedImages from "../../../component/image/RoundedImages";
 import Fragment from "../../base/Fragment";
 import "../../../../../styles/n_sass/fragments/about.sass";
@@ -25,7 +28,7 @@ class AboutFragment extends Fragment {
     titleFragment(): string {
         return "AboutMe";
     }
-    onReceiveMessage(key: string, value: any): void {
+    onReceiveMessage(_key: string, _value: any): void {
         
     }
 
@@ -59,7 +62,7 @@ class AboutFragment extends Fragment {
     }
 
     private implementBtnClick(button: HTMLElement, url: string){
-        button.addEventListener("click", (e: Event) => {
+        button.addEventListener("click", () => {
             window.open(url, "_blank");
         })
     }

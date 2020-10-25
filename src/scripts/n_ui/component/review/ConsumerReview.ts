@@ -9,7 +9,7 @@ class ConsumerReview extends HTMLElement {
         this._data = nData;
         this.render();
     }
-    render() {
+    render(): void {
         if(!this._data) return;
         this.innerHTML = `
             <div class="review-container">

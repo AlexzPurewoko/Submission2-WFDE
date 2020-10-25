@@ -1,9 +1,9 @@
-import { Button } from "../../../n_utils/element_types";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-empty-function */
 import DetailSummary from "../../component/detail/DetailSummary";
 import DetailActivityHeader from "../../component/header/DetailActivityHeader";
 import RoundedImages from "../../component/image/RoundedImages";
 import BaseActivity from "../base/BaseActivity";
-import { revData } from "./_cobaData";
 import * as utils from "./_utils";
 import "../../../../styles/n_sass/detail/detail-activity.sass"
 import ConsumerReview from "../../component/review/ConsumerReview";
@@ -11,11 +11,9 @@ import { AddReviewCallback } from "../../../n_utils/callbacks/AddReviewCallback"
 import { IPostReview } from "../../../n_logic/api/data/review/IPostReview";
 import NavItemCallback from "../../../n_utils/callbacks/NavItemCallback";
 import MainObjStore from "../../../n_logic/db/MainObjStore";
-import { update } from "lodash";
 import { IDetailRestaurantItem } from "../../../n_logic/api/data/detail/IDetailRestaurantItem";
 import ApiCallbacks from "../../../n_logic/api/modules/base/ApiCallbacks";
 import { IAllResponse } from "../../../n_logic/api/allresponse/IAllResponse";
-import BaseApi from "../../../n_logic/api/modules/base/BaseApi";
 import GetRestaurantDetail from "../../../n_logic/api/modules/detail/GetRestaurantDetail";
 import { IRestaurantDetailResponse } from "../../../n_logic/api/data/detail/IRestaurantDetailResponse";
 import PostReview from "../../../n_logic/api/modules/reviewResult/PostReview";
@@ -35,10 +33,10 @@ class DetailActivity extends BaseActivity implements ApiCallbacks{
     }
 
     private _navItemCv: NavItemCallback = (elmRef: HTMLElement, anchorRef: string) => {
-        this.navItemCb(elmRef, anchorRef);
+        this.navItemCb(anchorRef);
     }
 
-    private _isHeaderSticky: boolean = false
+    private _isHeaderSticky = false
     private _isFavorite = false;
     private _reviewPostApi = false;
     private _restaurantData : IDetailRestaurantItem = null;
@@ -60,8 +58,6 @@ class DetailActivity extends BaseActivity implements ApiCallbacks{
 
         this._header.callback = this._navItemCv;
         this._header.render();
-
-        const data = revData;
         
         this._header.isDisabled = true
         if(params[1] !== undefined && params[1] === "fromFavorite"){
@@ -70,7 +66,6 @@ class DetailActivity extends BaseActivity implements ApiCallbacks{
             this.loadFromApi(params[0]);
         }
         
-        this._restaurantData = data.restaurant;
     }
     onPaused(): void {
         
@@ -163,7 +158,7 @@ class DetailActivity extends BaseActivity implements ApiCallbacks{
         this._reviewPostApi = true;
     }
 
-    onFinished(data: IAllResponse) {
+    onFinished(data: IAllResponse) : void {
 
         if(!data.isSuccess){
             // display failed here
@@ -179,9 +174,9 @@ class DetailActivity extends BaseActivity implements ApiCallbacks{
             this._restaurantData = response.restaurant;
             this.composeUI(true);
         }
-    };
+    }
 
-    onLoad() {
+    onLoad() : void {
 
     }
 
@@ -195,7 +190,7 @@ class DetailActivity extends BaseActivity implements ApiCallbacks{
             .catch((e: any) => {
                 console.error(e)
                 this._restaurantData = null;
-                this.composeUI(false, e);
+                this.composeUI(false);
             })
     }
 
@@ -212,7 +207,7 @@ class DetailActivity extends BaseActivity implements ApiCallbacks{
 
     }
 
-    private composeUI(isSuccess: boolean, messages?: any) {
+    private composeUI(isSuccess: boolean) {
         if(!isSuccess){
 
             // display the error message here
@@ -252,7 +247,7 @@ class DetailActivity extends BaseActivity implements ApiCallbacks{
         }
     }
 
-    private navItemCb(elmRef: HTMLElement, hrefAnchor: string) {
+    private navItemCb(hrefAnchor: string) {
         switch(hrefAnchor){
             case "favorite": {
                 this.onFavClick();

@@ -15,17 +15,17 @@ class ShimmerLoading extends HTMLElement {
         this.render();
     }
     
-    show() {
+    show(): void {
         if(!this._views) return;
 
         this.setAttribute("display", "initial");
     }
 
-    pause() {
+    pause(): void {
         this.setAttribute("display", "none")
     }
 
-    destroy() {
+    destroy(): void {
         this.removeChild(this._views.getViews(this));
         this._views = null;
     }

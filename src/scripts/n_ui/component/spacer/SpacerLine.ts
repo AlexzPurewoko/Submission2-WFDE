@@ -14,10 +14,12 @@ export default class SpacerLine extends HTMLElement {
         this._attrs = a;
         this.render();
     }
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     connectedCallback() {
         this.render();
     }
-    render() {
+    
+    render(): void {
         if(!this._attrs) return;
         const {color, style, width, height} = this._attrs;
         const isHorizontal = style === 'horizontal';

@@ -6,7 +6,7 @@ import { ImageSize } from "../../endpoint/ImageSize";
 import BaseApi from "../base/BaseApi";
 
 class RequestSearch extends BaseApi {
-    private _query: string = "";
+    private _query = "";
 
     constructor(query: string) {
         super();
@@ -15,12 +15,12 @@ class RequestSearch extends BaseApi {
     protected fetchPromise(): Promise<Response> {
         return fetch(endpoint.search(this._query));
     }
-    protected serveData(jsonData: object): Promise<ApiAllResponse> {
-        const composed: ISearchResponse = <ISearchResponse> jsonData;
+    protected serveData(jsonData: Record<string, unknown>): Promise<ApiAllResponse> {
+        const composed: ISearchResponse = <ISearchResponse> <unknown> jsonData;
         composed.restaurants.forEach((i: IRestaurantItem) => {
             i.pictureLocation = endpoint.image(ImageSize.SMALL, i.pictureId);
         })
-        return new Promise((resolve, reject) => resolve(composed));
+        return new Promise((resolve) => resolve(composed));
     }
 
 }

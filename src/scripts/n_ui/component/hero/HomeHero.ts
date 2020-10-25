@@ -2,25 +2,25 @@ import "../../../../styles/n_sass/main/hero-main.sass";
 
 class HomeHero extends HTMLElement {
 
-    private isAnimStopped: boolean = true;
+    private isAnimStopped = true;
     private listImage: JQuery<Element>[] = [];
     private listText: JQuery<Element>[] = [];
-    private currentIndex: number = 0;
-    private currentTextIndex: number = 0;
+    private currentIndex = 0;
+    private currentTextIndex = 0;
 
 
-    pauseAnim() {
+    pauseAnim(): void {
         this.isAnimStopped = true;
     }
 
-    resumeAnim() {
+    resumeAnim(): void {
         if (this.isAnimStopped) {
             this.isAnimStopped = false
             this.anim();
         }
     }
 
-    render() {
+    render(): void {
         this.innerHTML = `
 
             <div class="hero__container">

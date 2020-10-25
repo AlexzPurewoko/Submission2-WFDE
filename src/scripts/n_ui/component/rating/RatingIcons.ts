@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 class RatingIcons extends HTMLElement {
-    private _rate: number = 0.0;
-    private _isShow: boolean = false;
+    private _rate = 0.0;
+    private _isShow = false;
 
     set rate(rate: number) {
         this._rate = rate > 5 ? 5 : rate;
@@ -11,12 +12,12 @@ class RatingIcons extends HTMLElement {
         return this._rate;
     }
 
-    toggleShow(){
+    toggleShow(): void{
         this._isShow = !this._isShow;
         this._updateAttrs();
     }
 
-    attributeChangedCallback(name: any, oldValue: any, newValue: any){
+    attributeChangedCallback(name: any, oldValue: any, newValue: any): void {
         if(oldValue != newValue){
             if(name === 'rate'){
                 const nValue = parseFloat(newValue);
@@ -42,8 +43,8 @@ class RatingIcons extends HTMLElement {
 
     private render() {
         let content = "";
-        let _p = Math.floor(this._rate * 10 % 10),
-            _f = Math.floor(this._rate);
+        const _p = Math.floor(this._rate * 10 % 10);
+        const _f = Math.floor(this._rate);
 
         let _i = 0;
         for (; _i < _f; _i++){

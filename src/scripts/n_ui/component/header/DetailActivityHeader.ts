@@ -1,4 +1,4 @@
-import { iteratee } from "lodash";
+/* eslint-disable @typescript-eslint/adjacent-overload-signatures */
 import "../../../../styles/n_sass/header/detail-header.sass";
 import NavItemCallback from "../../../n_utils/callbacks/NavItemCallback";
 class DetailActivityHeader extends HTMLElement {
@@ -33,7 +33,7 @@ class DetailActivityHeader extends HTMLElement {
         return this._favIcon.innerText === "favorite";
     }
 
-    render() {
+    render(): void {
         this.innerHTML =  `
             <button class="back-activity">
                 <i class="material-icons">arrow_back</i>

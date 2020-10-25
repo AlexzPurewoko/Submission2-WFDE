@@ -1,5 +1,8 @@
+/* eslint-disable @typescript-eslint/adjacent-overload-signatures */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import DatabaseHelper from "../../../n_logic/db/helper/DatabaseHelper";
-import MainDatabase from "../../../n_logic/db/MainDatabase";
 import MainApplication from "../../application/application";
 import { LifecycleCallback } from "../../application/callback/LifecycleCallback";
 import { FgAdapterCallback, FragmentAdapter } from "../../fragment/base/FragmentAdapter";
@@ -38,7 +41,7 @@ abstract class BaseActivity extends HTMLElement implements LifecycleCallback {
         }
         this.fragmentAdapter = new FragmentAdapter(this._db, cb);
     }
-    onReceiveFragmentCallback(fgKey: string, key: string, value: any){
+    onReceiveFragmentCallback(fgKey: string, key: string, value: any): void{
         // empty implementation, child must implement if they are an fragment on it
     }
     abstract onPaused(): void 

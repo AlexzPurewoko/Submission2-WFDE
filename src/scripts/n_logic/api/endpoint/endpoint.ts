@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { UConfig } from "./BaseConfig";
 import { ImageSize } from "./ImageSize";
 

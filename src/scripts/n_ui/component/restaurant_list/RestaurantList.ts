@@ -1,4 +1,3 @@
-import { create } from "lodash";
 import { IRestaurantItem } from "../../../n_logic/api/data/lists/IRestaurantItem";
 import RestaurantItemClickCb from "../../../n_utils/callbacks/RestaurantItemClickCb";
 import RestaurantItem from "../restaurant_item/RestaurantItem";
@@ -12,7 +11,7 @@ class RestaurantList extends HTMLElement {
         this._cb = cb;
     }
 
-    render(data: IRestaurantItem[]) {
+    render(data: IRestaurantItem[]): void {
         this.innerHTML = '';
         data.forEach((itemValue: IRestaurantItem) => {
             const createdElement = <RestaurantItem> document.createElement("item-restaurant");

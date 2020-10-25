@@ -21,7 +21,7 @@ class Badges extends HTMLElement {
         this._badgeOption = badgeOption;
     }
 
-    render() {
+    render() : void{
         let composedHtml = '<div>'
 
         this._items.map((item: ISingleName) => {

@@ -1,9 +1,8 @@
-import { head } from "lodash";
 import { IDetailRestaurantItem } from "../../../../n_logic/api/data/detail/IDetailRestaurantItem";
 import { IRestaurantItem } from "../../../../n_logic/api/data/lists/IRestaurantItem";
 import SpacerLine, { SpacerAttrs } from "../../../component/spacer/SpacerLine";
 
-export const setSpacerFav = (target: SpacerLine) => {
+export const setSpacerFav = (target: SpacerLine):void => {
     const spacerAttrs : SpacerAttrs = {
         color: "#d76700",
         style: "horizontal",

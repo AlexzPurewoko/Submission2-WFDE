@@ -4,4 +4,4 @@ export interface ISearchResponse {
     readonly error: boolean,
     readonly founded: number,
     readonly restaurants: IRestaurantItem[]
-};
+}

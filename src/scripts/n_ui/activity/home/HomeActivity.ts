@@ -1,9 +1,8 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import NavItemCallback from '../../../n_utils/callbacks/NavItemCallback';
-import { Button, ParagraphText } from '../../../n_utils/element_types';
 import HomeActivityFooter from '../../component/footer/HomeActivityFooter';
 import HomeActivityHeader from '../../component/header/HomeActivityHeader';
 import { GeneralCb } from '../../fragment/base/Fragment';
-import FavoriteFragment from '../../fragment/on_home/favorite/FavoriteFragment';
 import BaseActivity from '../base/BaseActivity'
 
 class HomeActivity extends BaseActivity {
@@ -55,7 +54,6 @@ class HomeActivity extends BaseActivity {
     }
     onDestroy(): void {
         // detach all fragments
-        const keyArrays = this.mapActiveFragment.keys;
         this.mapActiveFragment.forEach((value: boolean, key: string) => {
             this.fragmentAdapter.detachFragment(key);
         });

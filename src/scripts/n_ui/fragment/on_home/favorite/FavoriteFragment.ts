@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { IDetailRestaurantItem } from "../../../../n_logic/api/data/detail/IDetailRestaurantItem";
 import MainObjStore from "../../../../n_logic/db/MainObjStore";
 import Fragment from "../../base/Fragment";
@@ -24,10 +27,10 @@ class FavoriteFragment extends Fragment {
         this._restaurantLists = this.querySelector("restaurant-list");
         this._spacerLine = this.querySelector("spacer-line");
 
-        this._restaurantLists.onItemClick = (uiRef: RestaurantItem, data: IRestaurantItem) => {
+        this._restaurantLists.onItemClick = (_uiRef: RestaurantItem, data: IRestaurantItem) => {
             window.location.href = `#/DetailActivity/${data.id}/fromFavorite`;
         }
-        this._databaseCallbacks.callbacks = (instance: DatabaseHelper) => {
+        this._databaseCallbacks.callbacks = (_instance: DatabaseHelper) => {
             console.log("updating favorite db");
             this.fetchFromFavorite();
         }
@@ -45,7 +48,7 @@ class FavoriteFragment extends Fragment {
     titleFragment(): string {
         return "Favorites"
     }
-    onReceiveMessage(key: string, value: any): void {
+    onReceiveMessage(_key: string, _value: any): void {
         
     }
 
@@ -72,7 +75,7 @@ class FavoriteFragment extends Fragment {
 
     }
 
-    private onFinishedFetch(success: boolean, item: IDetailRestaurantItem[], e?: any){
+    private onFinishedFetch(success: boolean, item: IDetailRestaurantItem[], _e?: any){
         if(success){
             const results = utils.cvtFavDataToItem(item);
             this._restaurantLists.render(results);

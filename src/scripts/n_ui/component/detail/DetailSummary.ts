@@ -1,9 +1,7 @@
 import "../../../../styles/n_sass/detail/detail-summary.sass";
 import { IDetailRestaurantItem } from "../../../n_logic/api/data/detail/IDetailRestaurantItem";
 import { ISingleName } from "../../../n_logic/api/data/detail/ISingleName";
-import { IRestaurantItem } from "../../../n_logic/api/data/lists/IRestaurantItem";
 import Badges from "../badge/Badges";
-import RatingIcons from "../rating/RatingIcons";
 class DetailSummary extends HTMLElement {
     
     private _itemDetail: IDetailRestaurantItem = null;
@@ -12,7 +10,7 @@ class DetailSummary extends HTMLElement {
         this._itemDetail = d;
         
     }
-    render() {
+    render(): void {
 
         const {name, rating, address, city, categories} = this._itemDetail;
         this.innerHTML = `

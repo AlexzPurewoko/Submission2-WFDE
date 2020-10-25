@@ -11,12 +11,12 @@ class GetAllRestaurants extends BaseApi {
         return fetch(endpoint.list());
     }
 
-    protected serveData(jsonData: object): Promise<ApiAllResponse> {
-        const composed : IRestaurantResponse = <IRestaurantResponse> jsonData;
+    protected serveData(jsonData: Record<string, unknown>): Promise<ApiAllResponse> {
+        const composed : IRestaurantResponse = <IRestaurantResponse> <unknown> jsonData;
         composed.restaurants.forEach((i: IRestaurantItem) => {
             i.pictureLocation = endpoint.image(ImageSize.SMALL, i.pictureId);
         })
-        return new Promise((resolve, reject) => resolve(composed))
+        return new Promise((resolve) => resolve(composed))
     }
 
 }

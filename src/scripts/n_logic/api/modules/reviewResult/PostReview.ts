@@ -1,4 +1,3 @@
-import { head } from "lodash";
 import { ApiAllResponse } from "../../allresponse/IAllResponse";
 import { IPostReview } from "../../data/review/IPostReview";
 import { IResultReview } from "../../data/review/IResultReview";
@@ -28,9 +27,9 @@ class PostReview extends BaseApi {
         }
         return fetch(endpoint.postReview(), reqOptions);
     }
-    protected serveData(jsonData: object): Promise<ApiAllResponse> {
-        const composed : IResultReview = <IResultReview> jsonData;
-        return new Promise((resolve, reject) => resolve(composed));
+    protected serveData(jsonData: Record<string, unknown>): Promise<ApiAllResponse> {
+        const composed : IResultReview = <IResultReview> <unknown> jsonData;
+        return new Promise((resolve) => resolve(composed));
     }
 
 }

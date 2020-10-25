@@ -11,14 +11,14 @@ class HomeActivityFooter extends HTMLElement {
         this._cb = _nCb;
     }
 
-    toggleActiveItem(target: string) {
+    toggleActiveItem(target: string): void {
         // find the target
         const elmTarget = this.findElementTarget(target);
         // toggle active
         this.toggle(elmTarget);
     }
 
-    render() {
+    render() : void{
         this.innerHTML = `
             <nav class="tab-left">
                 <ul>

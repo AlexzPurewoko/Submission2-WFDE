@@ -1,4 +1,3 @@
-import { NamedChunksPlugin } from "webpack";
 import { AddReviewCallback } from "../../../n_utils/callbacks/AddReviewCallback";
 import { Button, InputText } from "../../../n_utils/element_types";
 import "../../../../styles/n_sass/review/post-review-consumer.sass";
@@ -20,7 +19,7 @@ class AddReview extends HTMLElement {
         this._restId = restId;
     }
 
-    render() {
+    render(): void {
         
         this.innerHTML = `
             <div class="compose-container">

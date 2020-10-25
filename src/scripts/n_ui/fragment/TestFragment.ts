@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-empty-function */
 import Fragment from "./base/Fragment";
 
 class TestFragment extends Fragment {
@@ -15,7 +18,7 @@ class TestFragment extends Fragment {
         return "TestFragment";
     }
 
-    onReceiveMessage(key: string, value: any): void {
+    onReceiveMessage(_key: string, _value: any): void {
         
     }
 

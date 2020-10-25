@@ -1,14 +1,14 @@
-import { ApiAllResponse, IAllResponse } from "../../allresponse/IAllResponse";
+import { ApiAllResponse } from "../../allresponse/IAllResponse";
 import ApiCallbacks from "./ApiCallbacks";
 
 
 abstract class BaseApi {
     private _callbacks : ApiCallbacks = null;
-    private _isRunning: boolean = false;
+    private _isRunning = false;
 
     protected abstract fetchPromise(): Promise<Response>
 
-    protected abstract async serveData(jsonData: object) : Promise<ApiAllResponse>
+    protected abstract async serveData(jsonData: Record<string, unknown>) : Promise<ApiAllResponse>
 
     async startLoad(): Promise<void> {
         if(!this._callbacks) return;

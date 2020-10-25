@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-empty-function */
+
 import NavItemCallback from "../../n_utils/callbacks/NavItemCallback";
 import HomeActivityHeader from "../component/header/HomeActivityHeader";
 import BaseActivity from "./base/BaseActivity";
@@ -22,10 +25,10 @@ class TestActivity extends BaseActivity {
     onDestroy(): void {
         
     }
-    onResizeEvent(event: Event): void {
+    onResizeEvent(_event: Event): void {
         
     }
-    onScrollEvent(event: Event): void {
+    onScrollEvent(_event: Event): void {
         
     }
 

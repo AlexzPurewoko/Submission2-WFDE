@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import "../../../../styles/n_sass/header/home-header.sass";
 import NavItemCallback from "../../../n_utils/callbacks/NavItemCallback";
 
@@ -16,7 +17,7 @@ class HomeActivityHeader extends HTMLElement {
         this.toggle(elmTarget);
     }
     
-    render() {
+    render(): void {
         this.innerHTML = `
             <div class='container__logo' >
                 <input 

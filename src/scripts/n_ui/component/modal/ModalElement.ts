@@ -1,8 +1,8 @@
 import "../../../../styles/n_sass/modal/modal.sass"
 
 class ModalElement extends HTMLElement {
-    private _content: string = ""; // the content of modal, written in html
-    private _isShowUp: boolean = false;
+    private _content = ""; // the content of modal, written in html
+    private _isShowUp = false;
 
     private _modal: HTMLElement = null;
     private _buttonClose: HTMLElement = null;
@@ -17,11 +17,11 @@ class ModalElement extends HTMLElement {
         return this._isShowUp;
     }
 
-    toggleModal() {
+    toggleModal(): void{
         $(this._modal).fadeIn("fast");
         this._isShowUp = true;
     }
-    render() {
+    render(): void {
         if(!this._content) throw new Error("You doesn't fill the modal content. please fill it!");
         this.innerHTML = `
             <div class="modal">

@@ -19,10 +19,10 @@ class MainApplication extends HTMLElement {
     private currentActivityInfo: ActivityInfo = null;
     private currentActivityRef: BaseActivity = null;
     private activityBackStack: BackStackProperty[] = [];
-    private currentHash: string = ""
+    private currentHash = ""
 
     private listenerReference = {
-        hashChange: (e: Event) => this.onHashChanged(e),
+        hashChange: () => this.onHashChanged(),
         onResize: (e: Event) => this.onResizeCallback(e),
         onScroll: (e: Event) => this.onScrollChange(e)
     }
@@ -32,7 +32,7 @@ class MainApplication extends HTMLElement {
         this._db = new MainDatabase();
     }
 
-    runApplication() {
+    runApplication() : void {
         
         // if its empty, then start root/homepage.
         if(window.location.hash === "" || window.location.hash === "#"){
@@ -56,7 +56,7 @@ class MainApplication extends HTMLElement {
 
     // Preferred only for activity instance to ensures that they 
     // can move to previous activity
-    activityBack() {
+    activityBack() : void {
         const lastElement = this.getBackStackLastElement();
         if(!lastElement) {
             return;
@@ -64,6 +64,7 @@ class MainApplication extends HTMLElement {
         window.location.hash = '#' + lastElement.hashURI;
     }
 
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     disconnectedCallback(){
         this.activityBackStack = [];
         document.removeEventListener("hashchange", this.listenerReference.hashChange);
@@ -143,7 +144,7 @@ class MainApplication extends HTMLElement {
         lifecycleCb.onResizeEvent(event);
     }
 
-    private onHashChanged(event: Event) {
+    private onHashChanged() {
         const hash = window.location.hash.slice(1);
         const urlParts = hash.split("/");
 

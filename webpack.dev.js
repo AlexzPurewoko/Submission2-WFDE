@@ -10,7 +10,8 @@ module.exports = merge(common, {
     host: '0.0.0.0',
     port: 8080,
     disableHostCheck: true,
-    open: true
+    open: true,
+    https: true
   },
   module: {
     rules: [

@@ -14,7 +14,6 @@ class HomeActivityFooter extends HTMLElement {
     toggleActiveItem(target: string) {
         // find the target
         const elmTarget = this.findElementTarget(target);
-        console.log(elmTarget);
         // toggle active
         this.toggle(elmTarget);
     }
@@ -41,20 +40,17 @@ class HomeActivityFooter extends HTMLElement {
         this.querySelectorAll("nav li").forEach((item: HTMLElement) => {
             const elm = item.children[0];
             if(elm.getAttribute("data-target") === target){
-                console.log(elm.getAttribute("data-target"));
                 selected = <HTMLElement>elm;
                 return;
             }
         });
 
-        console.log("RETURN");
         return selected;
     }
 
     private implementClick() {
         const elm = this.querySelector("nav > ul");
         elm.addEventListener("click", (e: Event) => {
-            console.log(e.target);
             const target = <HTMLElement> e.target;
             this.toggle(target);
 

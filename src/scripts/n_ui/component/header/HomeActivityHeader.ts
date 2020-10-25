@@ -12,7 +12,6 @@ class HomeActivityHeader extends HTMLElement {
     toggleActiveItem(target: string) {
         // find the target
         const elmTarget = this.findElementTarget(target);
-        console.log(elmTarget);
         // toggle active
         this.toggle(elmTarget);
     }
@@ -52,13 +51,10 @@ class HomeActivityHeader extends HTMLElement {
         this.querySelectorAll("nav li").forEach((item: HTMLElement) => {
             const elm = item.children[0];
             if(elm.getAttribute("href") === target){
-                console.log(elm.getAttribute("href"));
                 selected = <HTMLElement>elm;
                 return;
             }
         });
-
-        console.log("RETURN");
         return selected;
     }
 
@@ -76,7 +72,6 @@ class HomeActivityHeader extends HTMLElement {
 
     private toggle(target: HTMLElement){
         const parentUl = target.parentElement.parentElement;
-        console.log(parentUl)
         this.switchOffAll(parentUl.children);
 
             // switch on

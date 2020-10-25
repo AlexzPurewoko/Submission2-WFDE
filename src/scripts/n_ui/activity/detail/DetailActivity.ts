@@ -200,8 +200,6 @@ class DetailActivity extends BaseActivity implements ApiCallbacks{
     }
 
     private loadFromApi(id: string) {
-        const data = revData;
-
         if(this._apiCall ){
             this._apiCall.callbacks = null;
             this._apiCall = null;

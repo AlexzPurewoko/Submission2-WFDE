@@ -31,8 +31,13 @@ class RoundedImages extends HTMLElement {
         const imgObj = this.querySelector("img");
         if(this._imageAttrs.attrs)
             $(imgObj).attr(this._imageAttrs.attrs);
-        if(this._imageAttrs.css)
+        if(this._imageAttrs.css){
             $(imgObj).css(toPlainObject(this._imageAttrs.css));
+            $(imgObj.parentElement).css({
+                "max-width": "unset",
+                "width": "fit-content"
+            })
+        }
 
     }
 }

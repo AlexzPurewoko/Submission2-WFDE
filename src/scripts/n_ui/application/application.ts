@@ -132,7 +132,6 @@ class MainApplication extends HTMLElement {
     }
 
     private onScrollChange(event: Event){
-        console.log("onscroll");
         if(!this.currentActivityRef) return;
         const lifecycleCb = <LifecycleCallback> this.currentActivityRef;
         lifecycleCb.onScrollEvent(event);

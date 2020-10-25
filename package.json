@@ -6,7 +6,7 @@
   "scripts": {
     "start-dev": "webpack-dev-server --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
-    "lint" : "eslint ./src/scripts --ext .ts",
+    "lint": "eslint ./src/scripts --ext .ts",
     "lint-then-fix": "eslint ./src/scripts --ext .ts --fix",
     "test": "karma start"
   },
@@ -45,7 +45,9 @@
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0",
     "webpack-merge": "^5.0.9",
-    "whatwg-fetch": "^3.2.0"
+    "webpack-pwa-manifest": "^4.2.0",
+    "whatwg-fetch": "^3.2.0",
+    "workbox-webpack-plugin": "^5.1.4"
   },
   "dependencies": {
     "@types/autosize": "^3.0.7",

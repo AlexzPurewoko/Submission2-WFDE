@@ -22,7 +22,6 @@ export class FragmentAdapter {
     }
     attachFragment(key: string, fragmentName: string, addTo: HTMLElement, argument: any = null){
         const isAny = FragmentManifest.includes(fragmentName);
-        console.log("attach ", key, isAny)
         if(!isAny || this._fragments.has(key)) return;
         
         const created = <Fragment> document.createElement(fragmentName);

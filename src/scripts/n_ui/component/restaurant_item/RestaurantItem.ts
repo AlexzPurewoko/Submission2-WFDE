@@ -2,6 +2,7 @@ import { IRestaurantItem } from "../../../n_logic/api/data/lists/IRestaurantItem
 import RestaurantItemClickCb from "../../../n_utils/callbacks/RestaurantItemClickCb";
 import "../../../../styles/n_sass/restaurant_data/item.sass";
 import ModalElement from "../modal/ModalElement";
+import { event } from "jquery";
 class RestaurantItem extends HTMLElement {
 
     private _data: IRestaurantItem = null;
@@ -21,7 +22,6 @@ class RestaurantItem extends HTMLElement {
         const data = this._data;
         let currentHash = window.location.hash;
         currentHash = currentHash === "" ? "#" : currentHash;
-        console.log(data.pictureLocation);
         this.innerHTML = `
                     <div class="card-item-container">
                         <img src=${data.pictureLocation} alt='${data.name} image'></img>
@@ -70,10 +70,12 @@ class RestaurantItem extends HTMLElement {
             e.preventDefault();
         });
 
-        this.onclick = (e: Event) => {
-            if(e.target !== this) return;
+        const subjectClick = this.querySelector(".item-header-text");
+
+        subjectClick.addEventListener("click", (e: Event) => {
+            if(e.target !== subjectClick) return;
             this._cb(this, this._data)
-        }
+        });
 
     }
 }

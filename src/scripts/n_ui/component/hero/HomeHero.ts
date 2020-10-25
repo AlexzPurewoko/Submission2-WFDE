@@ -28,21 +28,21 @@ class HomeHero extends HTMLElement {
                     id='hero-image_1'
 
                     class='hero__img' 
-                    src='/images/heros/hero-image_1.jpg' 
+                    src='/images/heros/hero-image_1.jpeg' 
                     alt='Our master chef image'></img>
 
                 <img 
                     id='hero-image_2'
                     style='display: none;'
                     class='hero__img transparent' 
-                    src='/images/heros/hero-image_2.jpg' 
+                    src='/images/heros/hero-image_2.jpeg' 
                     alt='A menu image'></img>
 
                 <img 
                     id='hero-image_3'
                     style="display: none;"
                     class='hero__img transparent' 
-                    src='/images/heros/hero-image_3.jpg' 
+                    src='/images/heros/hero-image_3.jpeg' 
                     alt='Ingredients image'></img>
                 <div 
                     class='hero__text' 

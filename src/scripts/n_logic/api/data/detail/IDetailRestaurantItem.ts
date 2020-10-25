@@ -13,4 +13,5 @@ export interface IDetailRestaurantItem {
     readonly categories: ISingleName[],
     readonly menus: IRestaurantMenus,
     readonly consumerReviews: IConsumerReview[]
+    pictureLocation?: string
 }

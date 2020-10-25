@@ -1,6 +1,7 @@
 import { ApiAllResponse } from "../../allresponse/IAllResponse";
 import { IRestaurantDetailResponse } from "../../data/detail/IRestaurantDetailResponse";
 import { endpoint } from "../../endpoint/endpoint";
+import { ImageSize } from "../../endpoint/ImageSize";
 import BaseApi from "../base/BaseApi";
 
 class GetRestaurantDetail extends BaseApi {
@@ -14,6 +15,7 @@ class GetRestaurantDetail extends BaseApi {
     }
     protected serveData(jsonData: object): Promise<ApiAllResponse> {
         const composed: IRestaurantDetailResponse = <IRestaurantDetailResponse> jsonData;
+        composed.restaurant.pictureLocation = endpoint.image(ImageSize.SMALL, composed.restaurant.pictureId);
         return new Promise((resolve, reject) => resolve(composed));
     }
 

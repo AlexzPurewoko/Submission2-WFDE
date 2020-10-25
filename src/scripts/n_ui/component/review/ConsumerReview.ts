@@ -22,7 +22,7 @@ class ConsumerReview extends HTMLElement {
                         <p>${this._data.date}</p>
                     </div>
                     <div class="content-review">
-                        <p>${this._data.review}</p>
+                        <p>${this._data.review ? this._data.review : "No reviews available."}</p>
                     </div>
                 </div>
             </div>

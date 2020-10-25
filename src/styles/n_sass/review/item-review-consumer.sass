@@ -1,10 +1,11 @@
-
+@use "../base/utils"
 review-item-consumer .review-container
     border-radius: 6px 6px 6px 6px
     padding: 8px
     margin-left: 12px
     margin-right: 12px
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2 )
+    @include utils.boxShadowMethod(2px 2px 4px 1px rgba(0,0,0,0.13))
+    //box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2 )
     display: grid
     grid-template-columns: 40px auto
 

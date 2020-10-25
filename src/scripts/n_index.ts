@@ -1,3 +1,4 @@
+import "regenerator-runtime";
 import './n_ui/uireference';
 import 'material-icons';
 import 'material-icons/css/material-icons.min.css';

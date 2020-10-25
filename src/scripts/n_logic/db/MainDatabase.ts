@@ -13,6 +13,10 @@ class MainDatabase extends  DatabaseHelper {
                 db.createObjectStore(<never> MainObjStore.CURRENT_APP_STATE, {
                     keyPath: 'id'
                 });
+
+                db.createObjectStore(<never> MainObjStore.MAIN_DATABASE, {
+                    keyPath: 'id'
+                });
             }
         });
         this.init();

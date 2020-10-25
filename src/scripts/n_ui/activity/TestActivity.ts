@@ -12,14 +12,6 @@ class TestActivity extends BaseActivity {
     onCreated(params: any[]): void {
         super.onCreated(params);
         this.innerHTML = this.renderPage();
-
-        this._homeHeader = this.querySelector("home-header");
-        const cb : NavItemCallback = {
-            onClick(mgs: string): void {
-                console.log(mgs);
-            }
-        }
-        this._homeHeader.callback = cb;
     }
     onPaused(): void {
         

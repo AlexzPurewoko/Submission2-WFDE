@@ -2,7 +2,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
 const webpackPwaManifest = require("webpack-pwa-manifest");
@@ -85,22 +84,12 @@ module.exports = {
       filename: 'css/[name]-[hash].style.css',
       chunkFilename: '[name]-[hash].style.css'
     }),
-    new FaviconsWebpackPlugin({
-      logo: './src/public/images/icons/restaurant-icon.svg',
-      favicons: {
-        appName: 'FavRest',
-        appDescription: 'Explore the favorite restaurant in the world',
-        background: "#fff",
-        theme_color: '#fff',
-        icons: {
-          coast: false,
-          yandex: false
-        }
-      }
-    }),
+
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'src/templates/n_index.html'),
       filename: 'index.html',
+      favicon: "./src/public/images/icons/restaurant-icon.svg",
+
     }),
     new CopyWebpackPlugin({
       patterns: [
@@ -122,18 +111,14 @@ module.exports = {
       start_url: "/index.html",
       scope: "/",
       orientation: "any",
+      inject: true,
+      ios: true,
       icons: [
         {
           src: path.resolve("src/public/images/icons/icon.png"),
           sizes: [96, 128, 192, 256, 384, 512],
           purpose: "maskable",
           destination: "images/icons",
-          ios:false
-        },
-        {
-          src: path.resolve("src/public/images/icons/icon.png"),
-          size: 192,
-          destination: "images/icons/ios",
           ios: true
         }
       ]

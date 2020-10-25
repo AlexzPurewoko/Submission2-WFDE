@@ -14,7 +14,7 @@ class AboutFragment extends Fragment {
             alt: "Alexzander Purwoko Widiantoro's photo"
         };
         this.roundedImages.render();
-
+        this.implementClickButtons();
     }
     onSaveState(): void {
         
@@ -47,6 +47,21 @@ class AboutFragment extends Fragment {
                 
             </div>
         `;
+    }
+
+    private implementClickButtons() {
+        const buttonlinkedIn = <HTMLElement> this.querySelector(".button-layout > button:nth-child(1)");
+        const buttonGithub = <HTMLElement> this.querySelector(".button-layout > button:nth-child(2)");
+
+        this.implementBtnClick(buttonlinkedIn, "https://www.linkedin.com/in/alexzander-purwoko-w-360932136/");
+        this.implementBtnClick(buttonGithub, "https://github.com/AlexzPurewoko");
+        
+    }
+
+    private implementBtnClick(button: HTMLElement, url: string){
+        button.addEventListener("click", (e: Event) => {
+            window.open(url, "_blank");
+        })
     }
 
 }

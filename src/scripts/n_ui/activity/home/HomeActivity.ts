@@ -44,7 +44,7 @@ class HomeActivity extends BaseActivity {
         this.fragmentAdapter.attachFragment("about", "about-fragment", mainElement);
 
 
-        this._homeFooter.toggleActiveItem("about");
+        this._homeFooter.toggleActiveItem("dashboard");
 
     }
     onPaused(): void {
@@ -102,7 +102,7 @@ class HomeActivity extends BaseActivity {
                 <!-- all fragment goes here, and triggered with tabs -->
             </main>
 
-            <footer class="close">
+            <footer>
                 <!--<p class='footer_left' tabindex="0">Copyright @2020 APWDevs</p>
                 <p class='footer_right' tabindex="0" aria-label="Thanks to dicoding">@DicodingIDN</p>-->
                 <home-footer> </home-footer>

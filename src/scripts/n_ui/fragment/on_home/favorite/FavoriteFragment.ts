@@ -12,11 +12,14 @@ import RestaurantItem from "../../../component/restaurant_item/RestaurantItem";
 import { IRestaurantItem } from "../../../../n_logic/api/data/lists/IRestaurantItem";
 import { DBCallbacks } from "../../../../n_logic/db/callbacks/DBCallbacks";
 import DatabaseHelper from "../../../../n_logic/db/helper/DatabaseHelper";
+import ErrorPage, { AvailableTypes } from "../../../component/errorpage/ErrorPage";
 
 class FavoriteFragment extends Fragment {
 
     private _spacerLine: SpacerLine = null;
     private _restaurantLists: RestaurantList = null;
+    private _errorPage: ErrorPage = null;
+    private _loadingView: HTMLElement = null;
 
     private _databaseCallbacks : DBCallbacks = new DBCallbacks();
 
@@ -26,6 +29,8 @@ class FavoriteFragment extends Fragment {
 
         this._restaurantLists = this.querySelector("restaurant-list");
         this._spacerLine = this.querySelector("spacer-line");
+        this._errorPage = this.querySelector("error-page");
+        this._loadingView = this.querySelector(".loading-view");
 
         this._restaurantLists.onItemClick = (_uiRef: RestaurantItem, data: IRestaurantItem) => {
             window.location.href = `#/DetailActivity/${data.id}/fromFavorite`;
@@ -35,9 +40,14 @@ class FavoriteFragment extends Fragment {
             this.fetchFromFavorite();
         }
         this.database.addCallbacks(this._databaseCallbacks);
+        this._errorPage.errorType = AvailableTypes.favUnavailable;
+        this._errorPage.render();
+
+        utils.generateShimmerLoading(this._loadingView);
         
         utils.setSpacerFav(this._spacerLine);
         this.fetchFromFavorite();
+        
     }
     onSaveState(): void {
         
@@ -58,13 +68,16 @@ class FavoriteFragment extends Fragment {
                 <h1>Your Favorites</h1>
                 <spacer-line></spacer-line>
                 <restaurant-list> </restaurant-list>
+                <div class="loading-view"></div>
+                <error-page></error-page>
             </article>
         
         `;
     }
 
     private fetchFromFavorite() {
-
+        
+        this.hideShow("loading");
         this.database.getAllData(MainObjStore.MAIN_DATABASE)
             .then((item : IDetailRestaurantItem[]) => {
                 this.onFinishedFetch(true, item);
@@ -76,11 +89,36 @@ class FavoriteFragment extends Fragment {
     }
 
     private onFinishedFetch(success: boolean, item: IDetailRestaurantItem[], _e?: any){
-        if(success){
+        if(success && item.length > 0){
             const results = utils.cvtFavDataToItem(item);
             this._restaurantLists.render(results);
+            this.hideShow("lists");
+        } else {
+            this.hideShow("error");
         }
     } 
+
+    private hideShow(stateUI: "loading" | "lists" | "error"){
+        switch(stateUI){
+            case "loading" : {
+                $(this._loadingView).show();
+                $(this._errorPage).hide();
+                $(this._restaurantLists).hide();
+                break;
+            }
+            case "lists": {
+                $(this._loadingView).hide();
+                $(this._errorPage).hide();
+                $(this._restaurantLists).show();
+                break;
+            }
+            case "error": {
+                $(this._loadingView).hide();
+                $(this._errorPage).show();
+                $(this._restaurantLists).hide();
+            }
+        }
+    }
 
 }
 

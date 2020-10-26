@@ -1,5 +1,7 @@
 import { IDetailRestaurantItem } from "../../../../n_logic/api/data/detail/IDetailRestaurantItem";
 import { IRestaurantItem } from "../../../../n_logic/api/data/lists/IRestaurantItem";
+import ShimmerLoading from "../../../component/loading/ShimmerLoading";
+import CardItem from "../../../component/loading/typeloading/CardItem";
 import SpacerLine, { SpacerAttrs } from "../../../component/spacer/SpacerLine";
 
 export const setSpacerFav = (target: SpacerLine):void => {
@@ -27,4 +29,14 @@ export const cvtFavDataToItem = (source: IDetailRestaurantItem[]): IRestaurantIt
         });
     })
     return items;
+}
+
+export const generateShimmerLoading = (shimmer: HTMLElement): void => {
+    const shimmers : ShimmerLoading[] = [];
+    for(let x = 0; x < 3; x++){
+        const shimmLoading = <ShimmerLoading> document.createElement("shimmer-loading");
+        shimmLoading.views = new CardItem();
+        shimmers.push(shimmLoading);
+    }
+    $(shimmer).append(shimmers);
 }

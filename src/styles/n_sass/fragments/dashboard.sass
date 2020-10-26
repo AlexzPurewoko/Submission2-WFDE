@@ -36,18 +36,6 @@ dashboard-fragment
             z-index: 20
             background-color: white
 
-@media screen and(max-width: 600px)
-    dashboard-fragment .loading-view
-        grid-template-columns: auto
-
-@media screen and(min-width: 601px)
-    dashboard-fragment .loading-view
-        grid-template-columns: 520px
-
-@media screen and(min-width: 695px)
-    dashboard-fragment .loading-view
-        grid-template-columns: 310px 310px
-
 @media screen and(max-width: 700px)
     dashboard-fragment .main > .titles 
         grid-template-columns: auto
@@ -69,6 +57,18 @@ dashboard-fragment
                 margin-top: 8px
                 margin-bottom: auto
 
+@media screen and(max-width: 600px)
+    dashboard-fragment .loading-view
+        grid-template-columns: auto
+
+@media screen and(min-width: 601px)
+    dashboard-fragment .loading-view
+        grid-template-columns: 520px
+
+@media screen and(min-width: 695px)
+    dashboard-fragment .loading-view
+        grid-template-columns: 310px 310px
+        
 @media screen and(min-width: 1005px)
     dashboard-fragment .loading-view
         grid-template-columns: 310px 310px 310px

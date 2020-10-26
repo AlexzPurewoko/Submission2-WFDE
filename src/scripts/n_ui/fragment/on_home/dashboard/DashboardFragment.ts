@@ -15,6 +15,9 @@ import BaseApi from "../../../../n_logic/api/modules/base/BaseApi";
 import { IRestaurantResponse } from "../../../../n_logic/api/data/lists/IRestaurantResponse";
 import * as utils from "./_utils";
 import RestaurantItem from "../../../component/restaurant_item/RestaurantItem";
+import ErrorPage, { AvailableTypes } from "../../../component/errorpage/ErrorPage";
+import ShimmerLoading from "../../../component/loading/ShimmerLoading";
+import { ISearchResponse } from "../../../../n_logic/api/data/search/ISearchResponse";
 
 
 const spacerAttrs: SpacerAttrs[] = [
@@ -41,12 +44,14 @@ class DashboardFragment extends Fragment implements ApiCallbacks {
     private restaurantList: RestaurantList = null;
     private shimmerLoadingView: HTMLElement = null;
     private titleSearchGroup: HTMLElement = null;
+    private errorPage: ErrorPage = null;
 
 
 
     private apiRest: BaseApi = null;
     private isTitleSearchOnTop  = false;
     private tempTitleSearchOffsetTop = 0;
+    private isSearchApiRunning = false;
     
 
     onRenderPage(): void {
@@ -57,7 +62,7 @@ class DashboardFragment extends Fragment implements ApiCallbacks {
         this.restaurantList = this.querySelector("restaurant-list");
         this.shimmerLoadingView = this.querySelector(".loading-view");
         this.titleSearchGroup = this.querySelector(".main > .titles");
-        
+        this.errorPage = this.querySelector("error-page");
 
         this.homeHero.render();
         this.restaurantList.onItemClick = (_restItemRef: RestaurantItem, data: IRestaurantItem) => {
@@ -70,8 +75,6 @@ class DashboardFragment extends Fragment implements ApiCallbacks {
 
         // generate shimmer loading
         utils.generateShimmerLoading(this.shimmerLoadingView);
-        utils.toggleView(this.shimmerLoadingView, "off");
-        // display shimmer loading 
         this.defineSpacer();
         
         // display initiate page
@@ -80,7 +83,6 @@ class DashboardFragment extends Fragment implements ApiCallbacks {
         this.apiRest.startLoad();
 
         this.homeHero.resumeAnim();
-        
     }
     onSaveState(): void {
         this.homeHero.pauseAnim();
@@ -105,17 +107,27 @@ class DashboardFragment extends Fragment implements ApiCallbacks {
     }
 
     onLoad(): void{
-        // loading goes here...
-        utils.toggleView(this.shimmerLoadingView, "show");
-        utils.toggleView(this.restaurantList, "off");
+        this.hideShow("loading");
     }
 
     onFinished(data: IAllResponse): void {
-        utils.toggleView(this.shimmerLoadingView, "off");
-        utils.toggleView(this.restaurantList, "show");
         if(data.isSuccess && data.response.error === false){
-            const resp = <IRestaurantResponse> data.response;
-            this.renderListRestaurant(resp.restaurants);
+
+            if(this.isSearchApiRunning){
+                const resp = <ISearchResponse> data.response;
+                if(resp.restaurants.length < 1) {
+                    this.hideShow("search-unavailable");
+                } else {
+                    this.hideShow("success");
+                    this.renderListRestaurant(resp.restaurants);
+                }
+            } else {
+                this.hideShow("success");
+                const resp = <IRestaurantResponse> data.response;
+                this.renderListRestaurant(resp.restaurants);
+            }
+        } else {
+            this.hideShow("error-offline");
         }
     }
 
@@ -134,6 +146,7 @@ class DashboardFragment extends Fragment implements ApiCallbacks {
                 </div>
                 <restaurant-list></restaurant-list>
                 <div class="loading-view"></div>
+                <error-page></error-page>
             </section>
         `;
     }
@@ -172,6 +185,7 @@ class DashboardFragment extends Fragment implements ApiCallbacks {
 
         this.apiRest = new RequestSearch(text);
         this.apiRest.callbacks = this;
+        this.isSearchApiRunning = true;
         this.apiRest.startLoad();
     }
 
@@ -194,6 +208,41 @@ class DashboardFragment extends Fragment implements ApiCallbacks {
                 break;
             case "vertical":
                 this.spacerLine.attrs = spacerAttrs[0]
+        }
+    }
+
+    private hideShow(stateUI: "loading" | "success" | "error-offline" | "search-unavailable"){
+        switch(stateUI){
+            case "loading":{
+                $(this.errorPage).hide();
+                $(this.restaurantList).hide();
+                $(this.shimmerLoadingView).show();
+                break;
+            }
+            case "success":{
+                $(this.errorPage).hide();
+                $(this.restaurantList).show();
+                $(this.shimmerLoadingView).hide();
+                break;
+            }
+            case "error-offline":{
+                this.errorPage.errorType = AvailableTypes.offline;
+                this.errorPage.render();
+
+                $(this.errorPage).show();
+                $(this.restaurantList).hide();
+                $(this.shimmerLoadingView).hide();
+                break;
+            }
+            case "search-unavailable":{
+                this.errorPage.errorType = AvailableTypes.searchNotFound;
+                this.errorPage.render();
+
+                $(this.errorPage).show();
+                $(this.restaurantList).hide();
+                $(this.shimmerLoadingView).hide();
+                break;
+            }
         }
     }
 }

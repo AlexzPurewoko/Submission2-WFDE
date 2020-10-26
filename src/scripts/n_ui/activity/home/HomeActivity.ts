@@ -44,6 +44,7 @@ class HomeActivity extends BaseActivity {
 
 
         this._homeFooter.toggleActiveItem("dashboard");
+        this.skipContentImpl();
 
     }
     onPaused(): void {
@@ -91,7 +92,7 @@ class HomeActivity extends BaseActivity {
     private renderPage(): string {
         return `
 
-            <a href="#main" tabindex="0" id='skipcontent' class="skip-link">Skip to Content</a>
+            <a href="#main_content" tabindex="0" id='skipcontent' class="skip-link">Skip to Content</a>
             <header>
                 <home-header class="wrapper"></home-header>
             </header>
@@ -107,6 +108,27 @@ class HomeActivity extends BaseActivity {
             </footer> 
         
         `;
+    }
+
+    private skipContentImpl(){
+        this.querySelector("#skipcontent").addEventListener("click", (e: Event) => {
+            e.preventDefault();
+            const target = <HTMLElement> e.target;
+            const referrer = target.getAttribute("href");
+
+            const targetElement = <HTMLElement> this.querySelector(referrer);
+            if(!targetElement){
+                window.scrollBy(0,0);
+            } else {
+                const offsetTopReferrer = targetElement.offsetTop - 10;
+                
+                if(offsetTopReferrer > 1){
+                    window.scrollBy(0, offsetTopReferrer);
+                    targetElement.focus();
+                }
+            }
+            console.log("Referrer : ", referrer);
+        })
     }
 }
 customElements.define("home-activity", HomeActivity);

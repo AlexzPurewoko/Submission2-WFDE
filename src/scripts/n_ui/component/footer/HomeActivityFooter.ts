@@ -22,9 +22,9 @@ class HomeActivityFooter extends HTMLElement {
         this.innerHTML = `
             <nav class="tab-left">
                 <ul>
-                    <li><i data-target="dashboard" class="material-icons item">home</i></li>
-                    <li><i data-target="favorite" class="material-icons item">favorite</i></li>
-                    <li><i data-target="about" class="material-icons item">info</i></li>
+                    <li><a href="#" data-target="dashboard" class="material-icons item">home</a></li>
+                    <li><a href="#" data-target="favorite" class="material-icons item">favorite</a></li>
+                    <li><a href="#" data-target="about" class="material-icons item">info</a></li>
                 </ul>
             </nav>
             <div class="tab-right">
@@ -57,6 +57,7 @@ class HomeActivityFooter extends HTMLElement {
             // resolving data
             const targetHref = target.getAttribute("data-target");
             this._cb(this, targetHref);
+            e.preventDefault();
         });
     }
 

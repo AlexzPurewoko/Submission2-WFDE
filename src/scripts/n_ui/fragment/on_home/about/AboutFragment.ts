@@ -34,7 +34,7 @@ class AboutFragment extends Fragment {
 
     private render() {
         return `
-            <div class="container">
+            <div class="container" tabindex="0" id='main_content'>
                 <rounded-images></rounded-images>
                 <div class="content-description">
                     <h1>Alexzander Purwoko Widiantoro</h1>

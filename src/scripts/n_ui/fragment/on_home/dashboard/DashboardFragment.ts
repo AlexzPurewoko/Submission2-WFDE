@@ -124,7 +124,7 @@ class DashboardFragment extends Fragment implements ApiCallbacks {
             <section class='hero'>
                 <hero-home></hero-home>
             </section>
-            <section class='main' id='main_content' style="margin: 10px;">
+            <section tabindex="0" class='main' id='main_content' style="margin: 10px;">
                 <div class="titles">
                     <div class="title-search">
                         <h1>Looking for ?</h1>

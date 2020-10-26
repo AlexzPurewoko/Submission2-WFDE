@@ -54,7 +54,7 @@ class FavoriteFragment extends Fragment {
 
     private render() : string {
         return `
-            <article>
+            <article tabindex="0" id='main_content'>
                 <h1>Your Favorites</h1>
                 <spacer-line></spacer-line>
                 <restaurant-list> </restaurant-list>

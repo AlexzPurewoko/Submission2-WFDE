@@ -14,3 +14,4 @@ import "./detail/DetailSummary";
 import "./loading/ShimmerLoading";
 import "./spacer/SpacerLine";
 import "./header/DetailActivityHeader";
+import "./errorpage/ErrorPage";

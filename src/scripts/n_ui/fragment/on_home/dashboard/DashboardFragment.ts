@@ -16,7 +16,6 @@ import { IRestaurantResponse } from "../../../../n_logic/api/data/lists/IRestaur
 import * as utils from "./_utils";
 import RestaurantItem from "../../../component/restaurant_item/RestaurantItem";
 import ErrorPage, { AvailableTypes } from "../../../component/errorpage/ErrorPage";
-import ShimmerLoading from "../../../component/loading/ShimmerLoading";
 import { ISearchResponse } from "../../../../n_logic/api/data/search/ISearchResponse";
 
 
@@ -111,24 +110,28 @@ class DashboardFragment extends Fragment implements ApiCallbacks {
     }
 
     onFinished(data: IAllResponse): void {
-        if(data.isSuccess && data.response.error === false){
 
-            if(this.isSearchApiRunning){
-                const resp = <ISearchResponse> data.response;
-                if(resp.restaurants.length < 1) {
-                    this.hideShow("search-unavailable");
+        setTimeout((): void => {
+            if(data.isSuccess && data.response.error === false){
+
+                if(this.isSearchApiRunning){
+                    const resp = <ISearchResponse> data.response;
+                    if(resp.restaurants.length < 1) {
+                        this.hideShow("search-unavailable");
+                    } else {
+                        this.hideShow("success");
+                        this.renderListRestaurant(resp.restaurants);
+                    }
                 } else {
                     this.hideShow("success");
+                    const resp = <IRestaurantResponse> data.response;
                     this.renderListRestaurant(resp.restaurants);
                 }
             } else {
-                this.hideShow("success");
-                const resp = <IRestaurantResponse> data.response;
-                this.renderListRestaurant(resp.restaurants);
+                this.hideShow("error-offline");
             }
-        } else {
-            this.hideShow("error-offline");
-        }
+        }, 600);
+        
     }
 
     private render() : string {
@@ -136,7 +139,7 @@ class DashboardFragment extends Fragment implements ApiCallbacks {
             <section class='hero'>
                 <hero-home></hero-home>
             </section>
-            <section tabindex="0" class='main' id='main_content' style="margin: 10px;">
+            <section tabindex="0" class='main' id='main_content1' style="margin: 10px;">
                 <div class="titles">
                     <div class="title-search">
                         <h1>Looking for ?</h1>

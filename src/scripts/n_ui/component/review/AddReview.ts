@@ -29,8 +29,8 @@ class AddReview extends HTMLElement {
                 </div>
 
                 <div>
-                    <input type="text" name="username" class="compose-username" placeholder="Name">
-                    <textarea class="compose-body" name="message" placeholder="Put your review message here..."></textarea> 
+                    <input aria-label="Type your username" type="text" name="username" class="compose-username" placeholder="Name">
+                    <textarea aria-label="Type your reviews" class="compose-body" name="message" placeholder="Put your review message here..."></textarea> 
                     <div>
                         <button class="review-submit"><i class="material-icons">chevron_right</i></button>
                     </div>

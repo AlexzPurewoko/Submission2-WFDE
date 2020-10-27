@@ -24,7 +24,6 @@ class FavoriteFragment extends Fragment {
     private _databaseCallbacks : DBCallbacks = new DBCallbacks();
 
     onRenderPage(): void {
-        console.log("onrender");
         this.innerHTML = this.render();
 
         this._restaurantLists = this.querySelector("restaurant-list");
@@ -36,7 +35,6 @@ class FavoriteFragment extends Fragment {
             window.location.href = `#/DetailActivity/${data.id}/fromFavorite`;
         }
         this._databaseCallbacks.callbacks = (_instance: DatabaseHelper) => {
-            console.log("updating favorite db");
             this.fetchFromFavorite();
         }
         this.database.addCallbacks(this._databaseCallbacks);
@@ -64,7 +62,7 @@ class FavoriteFragment extends Fragment {
 
     private render() : string {
         return `
-            <article tabindex="0" id='main_content'>
+            <article tabindex="0" id='main_content2'>
                 <h1>Your Favorites</h1>
                 <spacer-line></spacer-line>
                 <restaurant-list> </restaurant-list>

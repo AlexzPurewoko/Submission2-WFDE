@@ -1,20 +1,21 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-empty-function */
 
-import NavItemCallback from "../../n_utils/callbacks/NavItemCallback";
-import HomeActivityHeader from "../component/header/HomeActivityHeader";
+import ShimmerLoading from "../component/loading/ShimmerLoading";
+import { BadgeListShimmer } from "../component/loading/typeloading/BadgeListShimmer";
 import BaseActivity from "./base/BaseActivity";
-import HomeActivity from "./home/HomeActivity";
 //import "../../../styles/sass/index.sass";
 
 // schedule for composing homepage activities....
 
 class TestActivity extends BaseActivity {
 
-    private _homeHeader: HomeActivityHeader;
     onCreated(params: any[]): void {
         super.onCreated(params);
         this.innerHTML = this.renderPage();
+        const data = <ShimmerLoading> this.querySelector("shimmer-loading");
+        data.views = new BadgeListShimmer();
+
     }
     onPaused(): void {
         
@@ -34,22 +35,7 @@ class TestActivity extends BaseActivity {
 
     private renderPage(): string {
         return `
-
-            <a href="#main" tabindex="0" id='skipcontent' class="skip-link">Skip to Content</a>
-            <header>
-                <home-header class="wrapper"></home-header>
-            </header>
-
-            <main>
-                <!-- all fragment goes here, and triggered with tabs -->
-            </main>
-
-            <footer>
-                <!--<p class='footer_left' tabindex="0">Copyright @2020 APWDevs</p>
-                <p class='footer_right' tabindex="0" aria-label="Thanks to dicoding">@DicodingIDN</p>-->
-                <home-footer> </home-footer>
-            </footer> 
-        
+            <shimmer-loading></shimmer-loading>
         `;
     }
 

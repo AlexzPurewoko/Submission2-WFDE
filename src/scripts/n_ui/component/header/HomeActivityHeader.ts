@@ -77,7 +77,6 @@ class HomeActivityHeader extends HTMLElement {
 
             // switch on
         target.classList.add("active");
-        //target.style.color = "#fff";
     }
 
     private sendCallbackClickItem(content: string){

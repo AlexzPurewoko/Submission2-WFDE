@@ -17,6 +17,11 @@ export const AvailableTypes = {
         title: "No Response",
         localeUrl: "/images/stories/failed-stories.svg"
     },
+    favDataNotFound: {
+        message: "I can't find your data in favorite database. Please come back to Home Activity :(",
+        title: "Data Not Found!",
+        localeUrl: "/images/stories/search-unavailable.svg"
+    },
     favUnavailable: {
         message: "Favorite data is empty. Please add some, and your favorites will be displayed here",
         title: "No Favorite :(",

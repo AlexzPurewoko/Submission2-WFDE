@@ -48,16 +48,16 @@ class HomeHero extends HTMLElement {
                     class='hero__text' 
                     id='explain__text_hero'>
                     <article id='text-hero_1'>
-                        <h1 tabIndex="0" id='text_container_1'>Chef</p>
-                        <h2 tabIndex="0" id='text_container_2'>We have a most talented chef in my restaurant's group</p>
+                        <h1 id="text-hero-1-h1" tabIndex="0" class='text_container_1'>Chef</p>
+                        <h2 id="text-hero-1-h2" tabIndex="0" class='text_container_2'>We have a most talented chef in my restaurant's group</p>
                     </article>
                     <article id='text-hero_2' style="display: none;">
-                        <h1 tabIndex="0" id='text_container_1'>Food</p>
-                        <h2 tabIndex="0" id='text_container_2'>We serve many of good food beside's you want</p>
+                        <h1 id="text-hero-2-h1" tabIndex="0" class='text_container_1'>Food</p>
+                        <h2 id="text-hero-2-h2" tabIndex="0" class='text_container_2'>We serve many of good food beside's you want</p>
                     </article>
                     <article id='text-hero_3' style="display: none;">
-                        <h1 tabIndex="0" id='text_container_1' >Ingredients</p>
-                        <h2 tabIndex="0" id='text_container_2'>We selecting many good ingredients for making a taste food</p>
+                        <h1 id="text-hero-3-h1" tabIndex="0" class='text_container_1' >Ingredients</p>
+                        <h2 id="text-hero-3-h2" tabIndex="0" class='text_container_2'>We selecting many good ingredients for making a taste food</p>
                     </article>
                 </div>
             </div>

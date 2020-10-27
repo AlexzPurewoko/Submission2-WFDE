@@ -26,9 +26,9 @@ class SearchElement extends HTMLElement {
         this.innerHTML = `
             <div class="search-container">
                 <div class="search-icons">
-                    <span class="material-icons">search</span>
+                    <span id="icon-search" class="material-icons">search</span>
                 </div>
-                <input type="text" name="search" class="search-input" placeholder="Search any....">
+                <input id="search" type="text" name="search" class="search-input" aria-labelledBy="icon-search" placeholder="Search any....">
                 <button class="submit"><i class="material-icons">chevron_right</i></button>
             </div>
         `;

@@ -25,11 +25,11 @@ class RestaurantItem extends HTMLElement {
                     <div class="card-item-container">
                         <img src=${data.pictureLocation} alt='${data.name} image'></img>
                         
-                        <div class='item-header-text' tabIndex='0' role='heading' aria-label='Restaurant ${data.name} from ${data.city}'>
+                        <div class='item-header-text' tabIndex='0' role='group' aria-label='Restaurant ${data.name} from ${data.city}'>
                             <p class='item-header-subtitle'><i class='material-icons'>location_on</i> ${data.city}</p>
                             <div>
                                 <div class="grid-header-1">
-                                    <h2 class='item-header-title'>${data.name}</h2>
+                                    <h1 class='item-header-title'>${data.name}</h2>
                                     <rating-component rate="4.5" show="true"></rating-component>
                                 </div>
                                 <div class="grid-header-2">

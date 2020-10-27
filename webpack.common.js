@@ -3,9 +3,11 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
+const glob = require('glob');
 const webpack = require('webpack');
 const webpackPwaManifest = require("webpack-pwa-manifest");
 const workboxPlugin = require("workbox-webpack-plugin");
+const PurgeCSSPlugin = require("purgecss-webpack-plugin");
 
 module.exports = {
   entry: {
@@ -85,6 +87,10 @@ module.exports = {
       chunkFilename: '[name]-[hash].style.css'
     }),
 
+    new PurgeCSSPlugin({
+      paths: glob.sync(`${path.join(__dirname, 'src')}/**/*`,  { nodir: true }),
+    }),
+
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'src/templates/n_index.html'),
       filename: 'index.html',
@@ -99,6 +105,7 @@ module.exports = {
         }
       ],
     }),
+
 
     new webpackPwaManifest({
       name: "Favorite Restaurant",
@@ -116,8 +123,8 @@ module.exports = {
       icons: [
         {
           src: path.resolve("src/public/images/icons/icon.png"),
-          sizes: [96, 128, 192, 256, 384, 512],
-          purpose: "maskable",
+          sizes: [96, 128, 144, 192, 256, 384, 512],
+          purpose: "any maskable",
           destination: "images/icons",
           ios: true
         }

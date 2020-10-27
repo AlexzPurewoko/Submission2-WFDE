@@ -18,6 +18,8 @@ import GetRestaurantDetail from "../../../n_logic/api/modules/detail/GetRestaura
 import { IRestaurantDetailResponse } from "../../../n_logic/api/data/detail/IRestaurantDetailResponse";
 import PostReview from "../../../n_logic/api/modules/reviewResult/PostReview";
 import { IResultReview } from "../../../n_logic/api/data/review/IResultReview";
+import ErrorPage, { AvailableTypes } from "../../component/errorpage/ErrorPage";
+import ShimmerLoading from "../../component/loading/ShimmerLoading";
 
 class DetailActivity extends BaseActivity implements ApiCallbacks{
 
@@ -27,6 +29,9 @@ class DetailActivity extends BaseActivity implements ApiCallbacks{
     private _reviewList: ConsumerReview = null;
     private _detailDescription: HTMLElement = null;
     private _addReviewLayout: HTMLElement = null;
+    private _errorPage: ErrorPage = null
+    private _loadingView: ShimmerLoading[] = [];
+    private _mainElement: HTMLElement = null;
 
     private _addReviewCb: AddReviewCallback = (dataContract: IPostReview) => {
         this.addReviewCbImpl(dataContract);
@@ -39,6 +44,7 @@ class DetailActivity extends BaseActivity implements ApiCallbacks{
     private _isHeaderSticky = false
     private _isFavorite = false;
     private _reviewPostApi = false;
+    private _hasFirstLoad = false;
     private _restaurantData : IDetailRestaurantItem = null;
 
     private _apiCall: GetRestaurantDetail = null;
@@ -47,7 +53,6 @@ class DetailActivity extends BaseActivity implements ApiCallbacks{
     onCreated(params: any[]): void {
         super.onCreated(params);
         this.innerHTML = this.render();
-        console.log(params);
         
         this._header = this.querySelector("detail-header");
         this._roundedImages = this.querySelector("rounded-images");
@@ -55,10 +60,14 @@ class DetailActivity extends BaseActivity implements ApiCallbacks{
         this._detailDescription = this.querySelector(".description");
         this._reviewList = this.querySelector(".reviews > .list-review");
         this._addReviewLayout = this.querySelector(".add-reviews");
+        this._errorPage = this.querySelector("error-page");
+        this._mainElement = this.querySelector("main");
+
+        this._loadingView = utils.generateLoadingLayouts(this._mainElement);
 
         this._header.callback = this._navItemCv;
         this._header.render();
-        
+
         this._header.isDisabled = true
         if(params[1] !== undefined && params[1] === "fromFavorite"){
             this.loadFromFavorite(params[0]);
@@ -74,7 +83,7 @@ class DetailActivity extends BaseActivity implements ApiCallbacks{
         
     }
     onDestroy(): void {
-        console.log("onDestroy Detail Activity!")
+
     }
     onResizeEvent(event: Event): void {
         
@@ -90,7 +99,8 @@ class DetailActivity extends BaseActivity implements ApiCallbacks{
             </header>
 
             <main>
-                <article class="summary_info">
+                <article tabindex="0" class="summary_info">
+                    <shimmer-loading></shimmer-loading>
                     <section class="image-poster">
                         <rounded-images></rounded-images>
                     </section>
@@ -101,7 +111,7 @@ class DetailActivity extends BaseActivity implements ApiCallbacks{
                 </article>
 
                 
-                <article class="description">
+                <article tabindex="0" class="description">
                     <section class="titles">
                         <h1 class="title-section">Description</h1>
                         <spacer-line class="title-section-line"></spacer-line>
@@ -110,48 +120,54 @@ class DetailActivity extends BaseActivity implements ApiCallbacks{
                     <section class="content">
                         <p></p>
                     </section>
+                    <shimmer-loading></shimmer-loading>
                 </article>
 
                 
-                <article class="menus">
+                <article tabindex="0" class="menus">
                     <section class="food-menu">
                         <h1 class="title-section">Food Menu's</h1>
                         <spacer-line class="title-section-line"></spacer-line>
                         <list-badge></list-badge>
+                        <shimmer-loading></shimmer-loading>
                     </section>
 
                     <section class="drink-menu">
                         <h1 class="title-section">Drink's Menu</h1>
                         <spacer-line class="title-section-line"></spacer-line>
                         <list-badge></list-badge>
+                        <shimmer-loading></shimmer-loading>
                     </section>
                 </article>
                 
 
-                <article class="reviews">
+                <article tabindex="0" class="reviews">
                     <section class="list-review">
                         <!-- generates dynamically -->
                         <h1 class="title-section">All Reviews</h1>
                         <spacer-line class="title-section-line"></spacer-line>
                         <div class="list"></div>
+                        <shimmer-loading></shimmer-loading>
                     </section>
 
-                    <section class="add-reviews">
+                    <section tabindex="0" class="add-reviews">
                         <h1 class="title-section">Add Review Here</h1>
                         <spacer-line class="title-section-line"></spacer-line>
                         <compose-review></compose-review>
+                        <shimmer-loading></shimmer-loading>
                     </section>
                 </article>
             </main>
 
-            <footer>
+            <error-page></error-page>
 
+            <footer>
+                <p>Copyright @2020 by APWDevs</p>
             </footer>
         `;
     }
 
     private addReviewCbImpl(dataContract: IPostReview){
-        console.log(dataContract);
         const api = new PostReview(dataContract);
         api.callbacks = this;
         api.startLoad();
@@ -161,8 +177,9 @@ class DetailActivity extends BaseActivity implements ApiCallbacks{
     onFinished(data: IAllResponse) : void {
 
         if(!data.isSuccess){
-            // display failed here
-
+            this._errorPage.errorType = AvailableTypes.offline;
+            this._errorPage.render();
+            this.composeUI(false);
             return;
         }
 
@@ -177,15 +194,26 @@ class DetailActivity extends BaseActivity implements ApiCallbacks{
     }
 
     onLoad() : void {
-
+        if(!this._hasFirstLoad){
+            this.hideShow("loading");
+            this._hasFirstLoad = true;
+        }
     }
 
     private loadFromFavorite(id: string) {
+        this.onLoad();
         this.database.getByKey(MainObjStore.MAIN_DATABASE, id)
             .then((data: IDetailRestaurantItem) => {
                 this._restaurantData = data;
                 this._header.isDisabled = false
-                this.composeUI(true);
+                
+                if(data)
+                    this.composeUI(true);
+                else {
+                    this._errorPage.errorType = AvailableTypes.favDataNotFound;
+                    this._errorPage.render();
+                    this.composeUI(false);
+                }
             })
             .catch((e: any) => {
                 console.error(e)
@@ -208,30 +236,54 @@ class DetailActivity extends BaseActivity implements ApiCallbacks{
     }
 
     private composeUI(isSuccess: boolean) {
-        if(!isSuccess){
+        setTimeout((): void => {
+            if(!isSuccess){
+                this.hideShow("errors");
+                return;
+            }
+            this.hideShow("show");
+            // init roundedImages
+            utils.applyRoundedImages(this._restaurantData, this._roundedImages);
+    
+            // init detailSummary
+            utils.applySummaryDetails(this._restaurantData, this._detailSummary);
+    
+            // init detailDescription
+            utils.applyDescriptionDetails(this._restaurantData, this._detailDescription);
+    
+            // init menus Section
+            utils.generateFoodAndDrinksSection(this._restaurantData, this.querySelector(".menus"));
+    
+            // init reviews section
+            utils.applyListReviews(this._restaurantData, this._reviewList);
+    
+            // init add reviews section 
+            utils.addLayoutComposeReview(this._restaurantData, this._addReviewCb, this._addReviewLayout);
+    
+            this.checkFavorite(this._restaurantData.id);
+        }, 1000);
+        
+    }
 
-            // display the error message here
-            return;
+    private hideShow(stateUI: "loading" | "show" | "errors"){
+        switch(stateUI){
+            case "loading": {
+                utils.showHideShimmerLayout(this._loadingView, "show");
+                $(this._errorPage).hide();
+                break;
+            }
+            case "show": {
+                utils.showHideShimmerLayout(this._loadingView, "hide");
+                $(this._errorPage).hide();
+                break;
+            }
+
+            case "errors": {
+                utils.showHideShimmerLayout(this._loadingView, "hide");
+                $(this._errorPage).show();
+                $(this._mainElement).hide();
+            }
         }
-        // init roundedImages
-        utils.applyRoundedImages(this._restaurantData, this._roundedImages);
-
-        // init detailSummary
-        utils.applySummaryDetails(this._restaurantData, this._detailSummary);
-
-        // init detailDescription
-        utils.applyDescriptionDetails(this._restaurantData, this._detailDescription);
-
-        // init menus Section
-        utils.generateFoodAndDrinksSection(this._restaurantData, this.querySelector(".menus"));
-
-        // init reviews section
-        utils.applyListReviews(this._restaurantData, this._reviewList);
-
-        // init add reviews section 
-        utils.addLayoutComposeReview(this._restaurantData, this._addReviewCb, this._addReviewLayout);
-
-        this.checkFavorite(this._restaurantData.id);
     }
 
     private checkAndStickyHeader() {
@@ -254,7 +306,11 @@ class DetailActivity extends BaseActivity implements ApiCallbacks{
                 break;
             }
             case "back": {
-                this.application.activityBack();
+                // this feature (activityBack()) not available now...
+                // soon as posibble
+                // this.application.activityBack();
+
+                window.location.hash = "#";
             }
         }
     }

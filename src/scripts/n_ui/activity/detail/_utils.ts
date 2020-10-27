@@ -7,6 +7,11 @@ import { AddReviewCallback } from "../../../n_utils/callbacks/AddReviewCallback"
 import Badges, { BadgeOptions } from "../../component/badge/Badges";
 import DetailSummary from "../../component/detail/DetailSummary";
 import RoundedImages, { RImageAttrs } from "../../component/image/RoundedImages";
+import ShimmerLoading, { ShimmerViews } from "../../component/loading/ShimmerLoading";
+import { BadgeListShimmer } from "../../component/loading/typeloading/BadgeListShimmer";
+import { DescriptionShimmer } from "../../component/loading/typeloading/DescriptionShimmer";
+import DetailSummaryShimmer from "../../component/loading/typeloading/DetailSummaryShimmer";
+import { ReviewItemCardShimmer } from "../../component/loading/typeloading/ReviewItemCardShimmer";
 import AddReview from "../../component/review/AddReview";
 import ConsumerReview from "../../component/review/ConsumerReview";
 import SpacerLine, { SpacerAttrs } from "../../component/spacer/SpacerLine";
@@ -75,7 +80,6 @@ export const generateFoodAndDrinksSection = (iItem: IDetailRestaurantItem, targe
 
 export const applyListReviews = (iItem: IDetailRestaurantItem, target: HTMLElement) => {
     const spacerLine : SpacerLine = target.querySelector("spacer-line");
-    console.log(target);
     const divListContainer: HTMLElement = target.querySelector(".list");
 
     spacerLine.attrs = spacerAttrs;
@@ -101,10 +105,37 @@ export const editReviewItems = (data: IResultReview, target: HTMLElement) => {
     const divListContainer: HTMLElement = target.querySelector(".list");
     
     divListContainer.innerHTML = '';
-    console.log(divListContainer);
     data.customerReviews.forEach((itemReview: IConsumerReview) => {
         const createElm = <ConsumerReview> document.createElement("review-item-consumer");
         createElm.data = itemReview;
         divListContainer.append(createElm);
+    });
+}
+
+export const generateLoadingLayouts = (mainElm: HTMLElement) : ShimmerLoading[]  => {
+    const composeLoading = (s: ShimmerLoading, impl: ShimmerViews): ShimmerLoading => {
+        s.views = impl
+        return s;
+    }
+
+    return [
+        composeLoading(mainElm.querySelector(".summary_info > shimmer-loading"), new DetailSummaryShimmer()),
+        composeLoading(mainElm.querySelector(".description > shimmer-loading"), new DescriptionShimmer()),
+        composeLoading(mainElm.querySelector(".food-menu > shimmer-loading"), new BadgeListShimmer()),
+        composeLoading(mainElm.querySelector(".drink-menu > shimmer-loading"), new BadgeListShimmer()),
+        composeLoading(mainElm.querySelector(".list-review > shimmer-loading"), new ReviewItemCardShimmer()),
+        composeLoading(mainElm.querySelector(".add-reviews > shimmer-loading"), new ReviewItemCardShimmer())
+    ]
+}
+
+export const showHideShimmerLayout = (shimmer: ShimmerLoading[], state: "show" | "hide"): void => {
+    shimmer.forEach((item) => {
+        switch(state) {
+            case "hide": 
+                $(item).hide();
+                break;
+            case "show":
+                $(item).show();
+        }
     });
 }
